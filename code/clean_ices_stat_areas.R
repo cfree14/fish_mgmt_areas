@@ -19,7 +19,7 @@ plotdir <- "figures"
 # Read data
 data_orig <- sf::st_read(file.path(indir, "ICES_Areas_20160601_cut_dense_3857.shp"))
 
-# Projection
+# Coordinate system
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 
