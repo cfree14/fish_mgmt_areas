@@ -7,24 +7,62 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(sf)
+library(here)
+library(janitor)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+# Set directories
+basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
+indir <- file.path(basedir, "nafo_stat_areas", "raw", "NAFO_Divisions_SHP")
+outdir <- file.path(basedir, "nafo_stat_areas", "processed")
+plotdir <- "figures"
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+# read in the data
+nafo_data_orig <- st_read(file.path(indir, "NAFO_Divisions_2021_pts.shp"))
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+# Set coordinate system
+wgs84 <- st_crs("+proj=longlat +datum=WGS84")
+```
+
+```{r}
+# Inspect attribute table
+nafo_df <- nafo_data_orig %>% 
+  st_drop_geometry()
+```
+
+
+```{r}
+# Wrangle the data into a df and export it
+nafo_df_final <- nafo_data_orig %>% 
+  mutate(dataset = "NAFO Statistical Areas",
+         country = "USA/Canada",
+         ocean = "Atlantic",
+         region = "NE Atlantic",
+         agency = "NAFO",
+         zone_name = NA,
+         species = "multi-species",
+         source = "https://www.nafo.int/Data/GIS") %>% 
+  rename(zone_id = Label) %>% 
+  select(dataset, country, ocean, region, agency, zone_id, zone_name, species, source) %>% 
+  st_transform(wgs84)
+```
+
+```{r}
+# Create output RDS file
+saveRDS(nafo_df_final, file = file.path(outdir, "NAFO_Divisions_2021_pts.Rds"))
+```
+
+```{r}
+# Create plot
+ggplot(data = nafo_df_final) +
+  geom_sf()
+```
+
