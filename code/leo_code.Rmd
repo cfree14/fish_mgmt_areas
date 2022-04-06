@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(rnaturalearth)
 library(sf)
 library(here)
 library(janitor)
@@ -16,15 +17,19 @@ library(janitor)
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "nafo_stat_areas", "raw", "NAFO_Divisions_SHP")
-outdir <- file.path(basedir, "nafo_stat_areas", "processed")
+indir <- file.path(basedir, "nefsc_stat_areas", "raw")
+outdir <- file.path(basedir, "nefsc_stat_areas", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-nafo_data_orig <- st_read(file.path(indir, "NAFO_Divisions_2021_pts.shp"))
+nefsc_data_orig <- st_read(file.path(indir, "Monkfish_Canyon_Closed_Areas.shp")) %>% 
+  clean_names()
+
+# rnaturalearth data
+world <- ne_countries(scale = "medium", returnclass = "sf")
 ```
 
 ```{r}
@@ -34,35 +39,41 @@ wgs84 <- st_crs("+proj=longlat +datum=WGS84")
 
 ```{r}
 # Inspect attribute table
-nafo_df <- nafo_data_orig %>% 
+nefsc_df <- nefsc_data_orig %>% 
   st_drop_geometry()
 ```
 
 
 ```{r}
 # Wrangle the data into a df and export it
-nafo_df_final <- nafo_data_orig %>% 
-  mutate(dataset = "NAFO Statistical Areas",
-         country = "USA/Canada",
+nefsc_df_final <- nefsc_data_orig %>% 
+  mutate(dataset = "NEFSC Statistical Areas",
+         country = "USA",
          ocean = "Atlantic",
          region = "NE Atlantic",
-         agency = "NAFO",
+         agency = "NEFSC",
          zone_name = NA,
-         species = "multi-species",
-         source = "https://www.nafo.int/Data/GIS") %>% 
-  rename(zone_id = Label) %>% 
+         species = "multi-species and monkfish",
+         source = "https://www.fisheries.noaa.gov/resource/map/monkfish-fishery-management-areas") %>% 
+  rename(zone_id = garfo_id) %>% 
   select(dataset, country, ocean, region, agency, zone_id, zone_name, species, source) %>% 
   st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(nafo_df_final, file = file.path(outdir, "NAFO_Divisions_2021_pts.Rds"))
+saveRDS(nefsc_df_final, file = file.path(outdir, "Monkfish_Canyon_Closed_Areas.Rds"))
 ```
 
 ```{r}
+  #      geom_sf(data = world),
+          #aes(color = name)) +
 # Create plot
-ggplot(data = nafo_df_final) +
-  geom_sf()
+ggplot() +
+  geom_sf(data = world) +
+  geom_sf(data = nefsc_data_orig,
+          aes(fill = areaname)) +
+  coord_sf(xlim = c(-80, -65),
+           ylim = c(32, 46))
 ```
 
