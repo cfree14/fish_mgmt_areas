@@ -17,15 +17,15 @@ library(janitor)
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "nefsc_stat_areas", "raw")
-outdir <- file.path(basedir, "nefsc_stat_areas", "processed")
+indir <- file.path(basedir, "canada", "raw")
+outdir <- file.path(basedir, "canada", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-nefsc_data_orig <- st_read(file.path(indir, "Monkfish_Canyon_Closed_Areas.shp")) %>% 
+df_orig <- st_read(file.path(indir, "pfma_areas_inside_outside.shp")) %>% 
   clean_names()
 
 # rnaturalearth data
@@ -39,41 +39,41 @@ wgs84 <- st_crs("+proj=longlat +datum=WGS84")
 
 ```{r}
 # Inspect attribute table
-nefsc_df <- nefsc_data_orig %>% 
+df <- df_orig %>% 
   st_drop_geometry()
 ```
 
 
 ```{r}
 # Wrangle the data into a df and export it
-nefsc_df_final <- nefsc_data_orig %>% 
-  mutate(dataset = "NEFSC Statistical Areas",
-         country = "USA",
-         ocean = "Atlantic",
-         region = "NE Atlantic",
-         agency = "NEFSC",
+df_final <- df_orig %>% 
+  mutate(dataset = "Pacific Fishery Management Areas Inside Outside",
+         country = "Canada",
+         ocean = "Pacific",
+         region = "NW Pacific",
+         agency = "Fisheries and Oceans Canada",
          zone_name = NA,
-         species = "multi-species and monkfish",
-         source = "https://www.fisheries.noaa.gov/resource/map/monkfish-fishery-management-areas") %>% 
-  rename(zone_id = garfo_id) %>% 
+         species = "multi-species",
+         source = "https://marine.rutgers.edu/~cfree/files/dfo_shapefiles/dfo_west_pfma_areas.zip") %>% 
+  rename(zone_id = unit) %>% 
   select(dataset, country, ocean, region, agency, zone_id, zone_name, species, source) %>% 
   st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(nefsc_df_final, file = file.path(outdir, "Monkfish_Canyon_Closed_Areas.Rds"))
+saveRDS(df_final, file = file.path(outdir, "pfma_areas_inside_outside.Rds"))
 ```
 
 ```{r}
-  #      geom_sf(data = world),
+  #    +     geom_sf(data = world),
           #aes(color = name)) +
 # Create plot
 ggplot() +
-  geom_sf(data = world) +
-  geom_sf(data = nefsc_data_orig,
-          aes(fill = areaname)) +
-  coord_sf(xlim = c(-80, -65),
-           ylim = c(32, 46))
+#  geom_sf(data = world) +
+  geom_sf(data = df_orig,
+          aes(fill = unit)) 
+  coord_sf(xlim = c(10, -160),
+           ylim = c(40, 57))
 ```
 
