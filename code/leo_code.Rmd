@@ -11,21 +11,23 @@ library(tidyverse)
 library(rnaturalearth)
 library(sf)
 library(here)
+library(tmap)
 library(janitor)
+library(tmaptools)
 ```
 
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "canada", "raw")
-outdir <- file.path(basedir, "canada", "processed")
+indir <- file.path(basedir, "brazil", "raw")
+outdir <- file.path(basedir, "brazil", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-df_orig <- st_read(file.path(indir, "pfma_areas_format_dissolve.shp")) %>% 
+df_orig <- st_read(file.path(indir, "ZonaCosteiraMarinha_FINAL.shp")) %>% 
   clean_names()
 
 # rnaturalearth data
@@ -47,32 +49,36 @@ df <- df_orig %>%
 ```{r}
 # Wrangle the data into a df and export it
 df_final <- df_orig %>% 
-  mutate(dataset = "Pacific Sardine Stock",
-         country = "Canada",
-         ocean = "Pacific",
-         region = "NE Pacific",
-         agency = "Pacific Marine Fisheries Commission",
-         zone_name = NA,
-         species = "sardine",
-         source = "https://marine.rutgers.edu/~cfree/files/dfo_shapefiles/dfo_west_pacific_sardine_wcvi_surveys.zip") %>% 
-  rename(zone_id = id) %>% 
-  select(dataset, country, ocean, region, agency, zone_id, zone_name, species, source) %>% 
-  st_transform(wgs84)
+ mutate(dataset = "Priority areas for multiple marine taxa",
+        country = "Brazil",
+        ocean = "Atlantic",
+        region = "Western Atlantic Ocean",
+        agency = "ICMBIO",
+        zone_name = "Brazilian coast",
+        species = "multi-species",
+        source = "") %>% 
+ rename(zone_id = id_ap) %>% 
+ select(dataset, country, ocean, region, agency, zone_id, zone_name, species, source) %>% 
+ st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(df_final, file = file.path(outdir, "pfma_areas_format_dissolve.Rds"))
+saveRDS(df_final, file = file.path(outdir, "ZonaCosteiraMarinha_FINAL.Rds"))
 ```
 
-```{r}
+```{r, fig.width=10, fig.height=10}
   #    +     geom_sf(data = world),
           #aes(color = name)) +
 # Create plot
-ggplot() +
-#  geom_sf(data = world) +
-  geom_sf(data = df_orig, fill = NA) 
-  coord_sf(xlim = c(-121, -118),
-           ylim = c(35, 33))
+data("World")
+tmap_mode("view")
+bb_brazil <- bb("Brazil", projection = "wgs84")
+tm_shape(World, bbox = bb_brazil) +
+  tm_polygons("iso_a3", legend.show = FALSE) +
+  tm_shape(df_orig) +
+    tm_polygons("ac_princ_nom", legend.show = FALSE) +
+
+ggsave(file.path(outdir, "Brazil_priority_areas_elasmos_coastal_zone.png"), width = 8, height = 8)
 ```
 
