@@ -19,15 +19,15 @@ library(tmaptools)
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "brazil", "raw")
-outdir <- file.path(basedir, "brazil", "processed")
+indir <- file.path(basedir, "gulf_of_mexico", "raw")
+outdir <- file.path(basedir, "gulf_of_mexico", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-df_orig <- st_read(file.path(indir, "ZonaCosteiraMarinha_FINAL.shp")) %>% 
+df_orig <- st_read(file.path(indir, "Spanish_mackerel_po.shp")) %>% 
   clean_names()
 
 # rnaturalearth data
@@ -49,23 +49,32 @@ df <- df_orig %>%
 ```{r}
 # Wrangle the data into a df and export it
 df_final <- df_orig %>% 
- mutate(dataset = "Priority areas for multiple marine taxa",
-        country = "Brazil",
+ mutate(dataset = "Spanish Mackerel Migratory Group Zones Fishery Management Areas",
+        country = "USA",
         ocean = "Atlantic",
-        region = "Western Atlantic Ocean",
-        agency = "ICMBIO",
-        zone_name = "Brazilian coast",
-        species = "multi-species",
-        source = "") %>% 
- rename(zone_id = id_ap) %>% 
+        region = "East Coast",
+        agency = "NOAA Fisheries",
+        zone_name = "Gulf of Mexico/West Atlantic",
+        species = "spanish mackerel",
+        source = "https://www.fisheries.noaa.gov/resource/map/spanish-mackerel-migratory-group-zones-fishery-management-areas-map-gis-data") %>% 
+ rename(zone_id = id) %>% 
  select(dataset, country, ocean, region, agency, zone_id, zone_name, species, source) %>% 
  st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(df_final, file = file.path(outdir, "ZonaCosteiraMarinha_FINAL.Rds"))
+saveRDS(df_final, file = file.path(outdir, "Spanish_mackerel_po.Rds"))
 ```
+
+```{r}
+ggplot() +
+#  geom_sf(data = world) +
+  geom_sf(data = df_orig, fill = NA) 
+  coord_sf(xlim = c(-100, -68),
+           ylim = c(24, 42))  
+```
+
 
 ```{r, fig.width=10, fig.height=10}
   #    +     geom_sf(data = world),
