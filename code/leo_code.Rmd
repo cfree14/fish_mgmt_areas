@@ -19,15 +19,18 @@ library(tmaptools)
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "gulf_of_mexico", "raw")
-outdir <- file.path(basedir, "gulf_of_mexico", "processed")
+indir <- file.path(basedir, "costa_rica", "raw")
+outdir <- file.path(basedir, "costa_rica", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-df_orig <- st_read(file.path(indir, "Spanish_mackerel_po.shp")) %>% 
+df_orig <- st_read(file.path(indir, "argentina_2.kml")) %>% 
+  clean_names() 
+
+df_orig_2 <- st_read(file.path(indir, "argentina_1.kml")) %>% 
   clean_names()
 
 # rnaturalearth data
@@ -42,52 +45,85 @@ wgs84 <- st_crs("+proj=longlat +datum=WGS84")
 ```{r}
 # Inspect attribute table
 df <- df_orig %>% 
-  st_drop_geometry()
+  st_drop_geometry() 
 ```
 
 
 ```{r}
 # Wrangle the data into a df and export it
-df_final <- df_orig %>% 
- mutate(dataset = "Spanish Mackerel Migratory Group Zones Fishery Management Areas",
-        country = "USA",
-        ocean = "Atlantic",
-        region = "East Coast",
-        agency = "NOAA Fisheries",
-        zone_name = "Gulf of Mexico/West Atlantic",
-        species = "spanish mackerel",
-        source = "https://www.fisheries.noaa.gov/resource/map/spanish-mackerel-migratory-group-zones-fishery-management-areas-map-gis-data") %>% 
- rename(zone_id = id) %>% 
+df_final <- costa_rica_atl %>%  
+  mutate(dataset = "Marine Areas of Responsible Fishing of the Pacific",
+        country = "Costa Rica",
+        ocean = "Pacific",
+        region = region,
+        agency = "Costa Rican Institute of Fishing and Aquaculture",
+        zone_id = NA,
+        zone_name = zone_name,
+        species = "multi-species",
+        source = "Digitized from https://www.incopesca.go.cr/pesca/ampr.aspx") %>% 
+# rename(zone_id = name) %>% 
  select(dataset, country, ocean, region, agency, zone_id, zone_name, species, source) %>% 
  st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(df_final, file = file.path(outdir, "Spanish_mackerel_po.Rds"))
+saveRDS(df_final, file = file.path(outdir, "Costa_Rica_Marine_Areas_of_Responsible_Fishing_Pacific.Rds"))
 ```
 
 ```{r}
 ggplot() +
-#  geom_sf(data = world) +
-  geom_sf(data = df_orig, fill = NA) 
-  coord_sf(xlim = c(-100, -68),
-           ylim = c(24, 42))  
+  geom_sf(data = world) +
+  geom_sf(data = df_orig, aes(fill = name)) +
+  geom_sf(data = df_orig_2, aes(fill = name)) +
+  coord_sf(xlim = c(-80, -50),
+           ylim = c(-30, -60)) 
+```
+
+```{r}
+wash_2 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas2.shp")) %>% 
+  clean_names()   
+  select(objectid, shape_leng) #multipolygon - commercial salmon closures df
+
+wash_4 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas4.shp")) %>% 
+  clean_names()  
+    select(objectid, shape_leng) #polygon
+
+wash_6 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas6.shp")) %>% 
+  clean_names()  
+    select(objectid, shape_leng) #multipolygon - do not use
+
+wash_8 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas8.shp")) %>% 
+  clean_names()  
+    select(objectid, shape_leng) #polygon - Commercial marine fish and shellfish areas for the Salish Sea
+
+wash_10 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas10.shp")) %>% 
+  clean_names()  
+    select(objectid, shape_leng) #multipolygon
+
+wash_12 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas12.shp")) %>% 
+  clean_names() 
+
+wash_14 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas14.shp")) %>% 
+  clean_names()  
+    select(objectid, shape_leng) #multipolygon
+
+wash_all <- bind_rows(wash_2, wash_4,
+                      wash_6,wash_8,
+                      wash_10, wash_12,
+                      wash_14) %>% 
+   st_transform(wgs84)
+
+wash_all_drop <- wash_all %>% 
+  st_drop_geometry()
 ```
 
 
-```{r, fig.width=10, fig.height=10}
-  #    +     geom_sf(data = world),
-          #aes(color = name)) +
-# Create plot
-data("World")
-tmap_mode("view")
-bb_brazil <- bb("Brazil", projection = "wgs84")
-tm_shape(World, bbox = bb_brazil) +
-  tm_polygons("iso_a3", legend.show = FALSE) +
-  tm_shape(df_orig) +
-    tm_polygons("ac_princ_nom", legend.show = FALSE) +
+```{r}
+costa_rica_atl <- readRDS(file.path(outdir, "Costa_Rica_Marine_Areas_of_Responsible_Fishing_Pacific.Rds"))
 
-ggsave(file.path(outdir, "Brazil_priority_areas_elasmos_coastal_zone.png"), width = 8, height = 8)
+argentina <- st_zm(argentina, drop = TRUE, what = "ZM")
+
+st_write(argentina, file.path(outdir, "Argentina_fisheries_management_areas.shp"))
 ```
 

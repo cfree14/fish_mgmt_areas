@@ -1,0 +1,189 @@
+---
+title: "summary_data_maps"
+author: "Leonardo Feitosa"
+date: "24/06/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rnaturalearth)
+library(janitor)
+library(sf)
+library(googlesheets4)
+```
+
+```{r}
+# Set directories
+basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
+outdir <- file.path(basedir, "outputs")
+```
+
+```{r}
+# read in the datasets spreadsheet
+gs4_deauth()
+datasets <- read_sheet("https://docs.google.com/spreadsheets/d/1eTjNFaf96dZsvtgsnREV-rstjQfqaEYqQrZXTscx9ns/edit#gid=0") %>% 
+  clean_names() %>% 
+  drop_na(country)
+
+gs4_deauth()
+progress_df <- read_sheet("https://docs.google.com/spreadsheets/d/1Ue6t_fK8NOjp5FVF4H0sk9de2i-VPp7WQ7SNlln6RZ4/edit#gid=0") %>% 
+  rename(admin = country) 
+
+# rnaturalearth data
+world <- ne_countries(scale = "medium", returnclass = "sf") %>% 
+  arrange(admin)
+```
+
+```{r}
+# data wrangling
+datasets_tidy <- datasets %>% 
+  rename(sovereignt = country) %>% 
+  filter(!region == "Europe") %>% 
+  select(sovereignt) %>% 
+  mutate(sovereignt = case_when(
+    sovereignt == "Multi-national" ~ "United States of America/Canada",
+    sovereignt == "USA" ~ "United States of America",
+    sovereignt == "USA/Canada" ~ "United States of America/Canada",
+    TRUE ~ sovereignt
+  )) %>% 
+  separate_rows(sovereignt, sep = "/") 
+
+
+dataset_sum <- datasets %>% 
+  mutate(type = case_when(
+    str_detect(species, "multi") ~ "multi-species",
+    TRUE ~ "single-species"
+  )) %>% 
+  group_by(type, country, agency) %>% 
+  count() %>% 
+  ungroup()
+
+data_count <- datasets_tidy %>% 
+  group_by(sovereignt) %>% 
+  count() 
+```
+
+```{r}
+datasets %>%
+  mutate(type = case_when(
+    str_detect(species, "multi") ~ "multi-species",
+    TRUE ~ "single-species"
+  )) %>% 
+  group_by(type, country, agency) %>% 
+  count() %>% 
+    mutate(country = case_when(
+    country == "Multi-national" ~ "United States of America/Canada",
+    country == "USA" ~ "United States of America",
+    country == "USA/Canada" ~ "United States of America/Canada",
+    TRUE ~ country
+  )) %>% 
+  separate_rows(country, sep = "/") %>% 
+  ggplot() +
+  geom_col(aes(x = fct_rev(country), y = n, fill = type),
+           show.legend = T,
+           position = "dodge") +
+  labs(y = "Number of datasets",
+       x = "",
+       title = "Number of datasets per country and type",
+       fill = "") +
+  coord_flip() +
+  theme_bw() +
+  theme(axis.title = element_text(color = "black"),
+        axis.text = element_text(color = "black"),
+        strip.background = element_rect(fill = "transparent"),
+        legend.position = c(.85, .5))
+
+ggsave(file.path(outdir, "summary_data_types.png"), height = 8, width = 8)
+```
+
+```{r, fig.height=10, fig.width=7}
+datasets %>%
+  mutate(type = case_when(
+    str_detect(species, "multi") ~ "multi-species",
+    TRUE ~ "single-species"
+  )) %>% 
+  group_by(species) %>% 
+  count() %>%   
+  drop_na() %>% 
+  mutate(species = str_to_sentence(species)) %>% 
+  ggplot() +
+  geom_col(aes(x = fct_reorder(species, n), y = n),
+           fill = "goldenrod4") +
+  labs(y = "Number of datasets",
+       x = "",
+       title = "Number of datasets per species",
+       fill = "") +
+  coord_flip() +
+  theme_bw() +
+  theme(axis.title = element_text(color = "black"),
+        axis.text = element_text(color = "black"),
+        strip.background = element_rect(fill = "transparent"),
+        legend.position = c(.85, .5),
+        panel.grid.major = element_blank())
+
+ggsave(file.path(outdir, "summary_data_sp.png"), height = 8, width = 8)
+```
+
+
+```{r, fig.height=8, fig.width=8}
+#merge datasets
+world_merge <- left_join(world, data_count, by = "sovereignt")
+
+
+ggplot() +
+  geom_sf(data = world,
+          size = 0.5) +
+  geom_sf(data = world_merge, 
+          aes(fill = fct_relevel(factor(n), "104", "21", "11",
+                                 "7", "6", "5", "4", "3", "2","1"))) +
+  scale_fill_viridis_d(direction = -1) +
+  coord_sf(xlim = c(-180, -30),
+            ylim = c(-60, 80),
+            expand = FALSE) +
+  labs(x = "",
+       y = "",
+       fill = "Number of datasets",
+       title = "Number of datasets found per country in the American continent") +
+  theme_bw() +
+  theme(axis.text = element_blank(),
+        legend.text = element_text(color = "black", size = 10),
+        legend.position = c(0.4, 0.2),
+        panel.grid = element_blank())
+
+ggsave(file = file.path(outdir, "dataset_counts.png"), height=8, width = 8)
+```
+
+```{r, fig.height=8, fig.width=8}
+# second map
+progress_merge <- left_join(world, progress_df, by = "admin") %>% 
+  mutate(status = str_to_sentence(status)) %>% 
+  mutate(status = case_when(
+    str_detect(status, "fin") ~ "Finalized",
+    TRUE ~ status
+  ))
+
+ggplot() +
+  geom_sf(data = world,
+          color = "grey") +
+  geom_sf(data = progress_merge,
+          aes(fill = fct_relevel(status, "Finalized", "In progress", "Contacted", "Not contacted", "NA"))) +
+  coord_sf(xlim = c(-180, -30),
+            ylim = c(-60, 80),
+            expand = FALSE) +
+  scale_fill_viridis_d() +
+  labs(x = "",
+       y = "",
+       fill = "Country status",
+       title = "Status of data collection for each country in the American continent") +
+  theme_bw() +  
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        legend.text = element_text(color = "black", size = 10),
+        legend.position = c(0.4, 0.2),
+        panel.grid = element_blank())
+
+ggsave(file = file.path(outdir, "country_status.png"), height=8, width = 8)
+```
+
