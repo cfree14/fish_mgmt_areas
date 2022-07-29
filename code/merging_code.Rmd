@@ -7,5 +7,104 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(sf)
+library(reshape2)
+library(rnaturalearth)
+```
+
+```{r}
+# Create file paths
+# Set directories
+basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
+indir <- file.path(basedir, "us_east_coast", "raw")
+outdir <- file.path(basedir, "us_east_coast", "processed")
+out_final <- file.path(basedir, "processed_files")
+plotdir <- "figures"
+```
+
+```{r}
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+# read in the data
+df_orig <- st_read(file.path(out_final, "USA_east_coast2.shp")) 
+
+east_coast <- list.files(file.path(outdir),
+                    pattern = "*.Rds",
+                    full.names = TRUE)
+
+east_coast_tbl <- sapply(east_coast, readRDS, simplify = FALSE) 
+
+east_coast_tbl_2 <- east_coast_tbl %>% 
+  bind_rows() %>% 
+  filter(!species == "atlantic sturgeon")
+
+sturgeon <- east_coast_tbl %>% 
+  bind_rows() %>% 
+  filter(species == "atlantic sturgeon")
+
+right_whale <- east_coast_tbl %>% 
+  bind_rows() %>% 
+  filter(species == "right whale")
+```
+
+```{r}
+# wrangling and plotting
+east_coast_tbl_geo <- east_coast_tbl_2 %>%
+  st_drop_geometry()
+
+east_coast_sturg <- east_coast_tbl %>% 
+  filter(species == "atlantic sturgeon") %>% 
+  st_polygonize()
+
+df_orig_geo <- df_orig %>% 
+  st_drop_geometry()
+
+df_final2_geo <- df_final2 %>% 
+  st_drop_geometry()
+```
+
+
+```{r}
+df_final <- sturgeon %>%  
+  mutate(pk_system_history = NA,
+         fk_system = NA,
+         name_english = dataset,
+         name_local = dataset,
+         additional_descriptor = NA,
+         code = NA,
+         multispecies = "1",
+         multispecies_comment = NA,
+         fk_system_type = NA,
+         fk_system_category = NA,
+         fk_system_owner = NA,
+         fk_system_subowner = NA,
+         source = source,
+         source_date = "2022-07-28",
+         usage = "none",
+         lineage = "Downloaded and imported from NOAA on 2022-07-28",
+         comment = NA,
+         created_by = "Leonardo Manir Feitosa",
+         created_on = "2022-07-28",
+         changed_by = NA,
+         changed_on = NA) %>% 
+  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species) %>% 
+  relocate(source, .before = source_date) 
+
+df_final2 <- st_collection_extract(df_final, "POLYGON")
+```
+
+```{r}
+# export shapefile
+st_write(df_final, file.path(out_final, "USA_sturgeon.shp"))
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = world) +
+  geom_sf(data = df_orig, aes(fill = nm_ngls),
+          show.legend = F) +
+  coord_sf(xlim = c(-90, -50),
+           ylim = c(20, 50))
 ```
 

@@ -19,19 +19,15 @@ library(tmaptools)
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "costa_rica", "raw")
-outdir <- file.path(basedir, "costa_rica", "processed")
+indir <- file.path(basedir, "us_east_coast", "raw")
+outdir <- file.path(basedir, "us_east_coast", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-df_orig <- st_read(file.path(indir, "argentina_2.kml")) %>% 
-  clean_names() 
-
-df_orig_2 <- st_read(file.path(indir, "argentina_1.kml")) %>% 
-  clean_names()
+df_orig <- readRDS(file.path(outdir, "SturgeonAtlantic_AtlanticSubspecies.rds")) 
 
 # rnaturalearth data
 world <- ne_countries(scale = "medium", returnclass = "sf")
@@ -51,30 +47,27 @@ df <- df_orig %>%
 
 ```{r}
 # Wrangle the data into a df and export it
-df_final <- costa_rica_atl %>%  
-  mutate(dataset = "Marine Areas of Responsible Fishing of the Pacific",
-        country = "Costa Rica",
-        ocean = "Pacific",
+df_final <- df_orig %>%  
+  mutate(dataset = dataset,
+        country = country,
+        ocean = ocean,
         region = region,
-        agency = "Costa Rican Institute of Fishing and Aquaculture",
-        zone_id = NA,
+        agency = agency,
+        zone_id = as.character(zone_id),
         zone_name = zone_name,
-        species = "multi-species",
-        source = "Digitized from https://www.incopesca.go.cr/pesca/ampr.aspx") %>% 
-# rename(zone_id = name) %>% 
- select(dataset, country, ocean, region, agency, zone_id, zone_name, species, source) %>% 
- st_transform(wgs84)
+        species = species,
+        source = source) 
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(df_final, file = file.path(outdir, "Costa_Rica_Marine_Areas_of_Responsible_Fishing_Pacific.Rds"))
+saveRDS(df_final, file = file.path(outdir, "SturgeonAtlantic_AtlanticSubspecies.Rds"))
 ```
 
 ```{r}
 ggplot() +
-  geom_sf(data = world) +
-  geom_sf(data = df_orig, aes(fill = name)) +
+#  geom_sf(data = world) +
+  geom_sf(data = df_orig, fill = NA) 
   geom_sf(data = df_orig_2, aes(fill = name)) +
   coord_sf(xlim = c(-80, -50),
            ylim = c(-30, -60)) 
