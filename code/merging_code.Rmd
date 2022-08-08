@@ -17,8 +17,9 @@ library(rnaturalearth)
 # Create file paths
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "us_east_coast", "raw")
-outdir <- file.path(basedir, "us_east_coast", "processed")
+indir <- file.path(basedir, "nefsc_stat_areas", "raw")
+nefsc_dir <- file.path(basedir, "nefsc_stat_areas", "processed")
+gulf_dir <- file.path(basedir, "gulf_of_mexico", "processed")
 out_final <- file.path(basedir, "processed_files")
 plotdir <- "figures"
 ```
@@ -27,26 +28,33 @@ plotdir <- "figures"
 
 world <- ne_countries(scale = "medium", returnclass = "sf")
 # read in the data
-df_orig <- st_read(file.path(out_final, "USA_sturgeon.shp")) 
 
-stur_2 <- st_read(file.path(out_final, "USA_sturgeon2.shp"))
-
-east_coast <- list.files(file.path(outdir),
+nefsc <- list.files(file.path(nefsc_dir),
                     pattern = "*.Rds",
                     full.names = TRUE)
 
-east_coast_tbl <- sapply(east_coast, readRDS, simplify = FALSE) 
+nefsc_tbl <- sapply(nefsc, readRDS, simplify = FALSE) 
 
-east_coast_tbl_2 <- east_coast_tbl %>% 
-  bind_rows() 
-
-sturgeon <- east_coast_tbl %>% 
+nefsc_tbl_2 <- nefsc_tbl %>% 
   bind_rows() %>% 
-  filter(species == "atlantic sturgeon")
+  mutate(species = str_to_lower(species)) %>% 
+  separate_rows(country, sep = "/") %>% 
+  mutate(iso_a3 = case_when(
+    country == "USA" ~ "USA",
+    country == "Canada" ~ "CAN"))
 
-right_whale <- east_coast_tbl %>% 
-  bind_rows() %>% 
-  filter(species == "right whale")
+east <- st_read(file.path(out_final, "USA_southeast_coast.gpkg"))
+
+king_mack <- readRDS(file.path(gulf_dir, "USA_king_mackerel_migratory_zones.Rds"))
+lobster <- readRDS(file.path(gulf_dir, "USA_spiny_lobster_mgmt_areas.Rds")) %>% 
+  mutate(zone_name = as.character(zone_name))
+span_mack <- readRDS(file.path(gulf_dir, "USA_spanish_mackerel_migratory_zones.Rds"))
+cobia <- readRDS(file.path(gulf_dir, "USA_cobia_migratory_zones.Rds"))
+
+east_us <- bind_rows(king_mack,
+                     lobster,
+                     span_mack,
+                     cobia)
 ```
 
 ```{r}
@@ -57,7 +65,7 @@ df_orig_geo <- df_orig %>%
 stur_2_geo <- df_sturg %>% 
   st_drop_geometry()
 
-east_coast_tbl_geo <- east_coast_tbl_2 %>%
+nefsc_tbl_geo <- nefsc_tbl_2 %>%
   st_drop_geometry()
 
 whale_geo <- df_whale %>% 
@@ -70,150 +78,93 @@ df_final_geo <- df_final %>%
   st_drop_geometry()
 ```
 
+
 ```{r}
-df_whale <- right_whale %>%  
-  mutate(pk_sy_h = NA,
-         fk_sy = NA,
-         nm_eng = dataset,
-         nm_loc = dataset,
-         add_des = zone_name,
+df_final <- east_us %>%  
+  mutate(pk_system_history = NA,
+         fk_system = NA,
+         name_english = dataset,
+         name_local = dataset,
+         additional_descriptor = zone_name,
          code = NA,
-         mltsps = NA,
-         mltspsc = species,
-         fk_sy_t = NA,
-         fk_sy_c = type,
-         fk_sy_o = "NOAA",
-         fk_sy_s = NA,
-         sourc = source,
-         sourc_d = "2022-07-28",
+         multispecies = NA,
+         multispecies_comment = species,
+         fk_system_type = NA,
+         fk_system_category = type,
+         fk_system_owner = "NOAA",
+         fk_system_subowner = NA,
+         source = citation,
+         source_date = "2022-07-28",
          usage = NA,
          lineage = "Downloaded and imported from NOAA on 2022-07-28",
          comment = NA,
-         crtd_by = "Leonardo Manir Feitosa",
-         crtd_on = "2022-07-28",
-         chngd_by = NA,
-         chngd_on = NA) %>% 
-  relocate(source, .before = sourc_d) %>% 
-  mutate(source = case_when(
-    dataset == "North Atlantic Right Whale Seasonal Management Areas (SMA)" ~ "NOAA Fisheries. (18 October 2019). North Atlantic Right Whale Seasonal Management Areas (SMA). https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/north-atlantic-right-whale-seasonal-management-areas-sma-map-gis-data"
-  )) %>% 
-    select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -sourc, -type, -species_list, -Id, -AREA_NAME)  
-```
-
-
-```{r}
-df_sturg <- sturgeon %>%  
-  mutate(pk_sy_h = NA,
-         fk_sy = NA,
-         nm_eng = dataset,
-         nm_loc = dataset,
-         add_des = zone_name,
-         code = NA,
-         mltsps = NA,
-         mltspsc = species,
-         fk_sy_t = NA,
-         fk_sy_c = type,
-         fk_sy_o = "NOAA",
-         fk_sy_s = NA,
-         sourc = source,
-         sourc_d = "2022-07-28",
-         usage = NA,
-         lineage = "Downloaded and imported from NOAA on 2022-07-28",
-         comment = NA,
-         crtd_by = "Leonardo Manir Feitosa",
-         crtd_on = "2022-07-28",
-         chngd_by = NA,
-         chngd_on = NA) %>% 
-  relocate(source, .before = sourc_d) %>% 
-  mutate(source = case_when(
-    dataset == "Atlantic Sturgeon critical Habitat" ~ "NOAA Fisheries. (18 April 2022). Atlantic Sturgeon Critical Habitat. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/atlantic-sturgeon-critical-habitat-map-and-gis-data"
-  )) %>% 
-    select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -sourc, -type, -species_list, -Id, -AREA_NAME)  
-```
-
-
-```{r}
-df_final <- east_coast_tbl_2 %>%  
-  mutate(pk_sy_h = NA,
-         fk_sy = NA,
-         nm_eng = dataset,
-         nm_loc = dataset,
-         add_des = zone_name,
-         code = NA,
-         mltsps = NA,
-         mltspsc = species,
-         fk_sy_t = NA,
-         fk_sy_c = type,
-         fk_sy_o = "NOAA",
-         fk_sy_s = NA,
-         sourc = source,
-         sourc_d = "2022-07-28",
-         usage = NA,
-         lineage = "Downloaded and imported from NOAA on 2022-07-28",
-         comment = NA,
-         crtd_by = "Leonardo Manir Feitosa",
-         crtd_on = "2022-07-28",
-         chngd_by = NA,
-         chngd_on = NA) %>% 
-  relocate(source, .before = sourc_d) %>% 
-  mutate(mltsps = case_when(
-    str_detect(mltspsc, "multi") ~ "1",
+         created_by = "Leonardo Manir Feitosa",
+         created_on = "2022-07-28",
+         changed_by = NA,
+         changed_on = NA,
+         iso_a3 = "USA",
+         area_name = zone_id) %>% 
+  relocate(source, .before = source_date) %>% 
+  mutate(multispecies = case_when(
+    str_detect(multispecies_comment, "multi") ~ "1",
     TRUE ~ "0"
   )) %>% 
-  mutate(mltspsc = case_when(
-    str_detect(mltspsc, "multi") ~ species_list,
-    str_detect(dataset, "Octo") ~ "octocorals",
-    dataset == "Shrimp Fishery Access Areas" ~ "shrimp",
-    TRUE ~ mltspsc
-  )) %>% 
-  mutate(nm_eng = case_when(
-    str_detect(dataset, "HAPC") ~ "Oculina Bank HAPC",
-    TRUE ~ nm_eng
-  )) %>% 
-  mutate(nm_loc = case_when(
-    str_detect(dataset, "HAPC") ~ "Oculina Bank HAPC",
-    TRUE ~ nm_loc
-  )) %>% 
-  mutate(source = case_when(
-    str_detect(dataset, "South Carolina") ~ "State of South Carolina Health and Environment Control. (10 March 2021). Shellfish Management Areas. https://sc-department-of-health-and-environmental-control-gis-sc-dhec.hub.arcgis.com/. Retrieved 28 July 2022: https://sc-department-of-health-and-environmental-control-gis-sc-dhec.hub.arcgis.com/datasets/SC-DHEC::shellfish-management-areas/explore?location=32.973471%2C-79.754500%2C8.99",
-    str_detect(dataset, "Defined") ~ "NOAA Fisheries. (01 July 2013). South Atlantic Off States EEZ. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/defined-fishery-management-areas-south-atlantic-states-map-gis-data",
-    str_detect(dataset, "Commercial Vessel") ~ "NOAA Fisheries. (01 July 2013). https://www.fisheries.noaa.gov/. Commercial Vessel Permits for South Atlantic Snapper-Grouper Fishery Management. Retrieved 28 july 2022: https://www.fisheries.noaa.gov/resource/map/commercial-vessel-permits-south-atlantic-snapper-grouper-fishery-management-map-gis",
-    dataset == "Sea Bass Pot and Associated Buoy Gear Identification" ~ "NOAA Fisheries. (01 July 2013). Sea Bass Pot and Associated Buoy Gear Identification. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/sea-bass-pot-and-associated-buoy-gear-identification-fishery-management-area-map-gis",
-    dataset == "Longline Prohibited Areas" ~ "NOAA Fisheries. (01 July 2013). Longline Prohibited Areas Fishery Management Areas. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/longline-prohibited-areas-fishery-management-areas-map-gis-data",
-    dataset == "Special Management Zones (SMZs)" ~ "NOAA Fisheries. (01 July 2013). Special Management Zones (SMZs). https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/special-management-zones-smzs-fishery-management-areas-map-gis-data",
-    dataset == "Sea Bass Pot Prohibited Area" ~ "NOAA Fisheries. (01 July 2013). Sea Bass Pot Prohibited Area Fishery Management Area. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/sea-bass-pot-prohibited-area-fishery-management-area-map-gis-data",
-    dataset == "Marine Protected Areas (MPAs) Fishery Management Areas" ~ "NOAA Fisheries. (01 July 2013). Marine Protected Areas (MPAs) Fishery Management Areas. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/marine-protected-areas-mpas-fishery-management-areas-map-gis-data",
-    dataset == "Spawning Species Management Zones (SMZs)" ~ "NOAA Fisheries. (01 July 2013). Spawning Special Management Zones (SMZs). https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/marine-protected-areas-mpas-fishery-management-areas-map-gis-data",
-    dataset == "Allowable Octocoral Closed Areas" ~ "NOAA Fisheries. (01 July 2013). Allowable Octocoral Closed Areas. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/allowable-octocoral-closed-area-fishery-management-area-map-gis-data",
-    str_detect(dataset, "Experimental") ~ "NOAA Fisheries. (01 July 2013). Oculina Bank Experimental Closed Area. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/oculina-bank-hapc-and-experimental-closed-area-fishery-management-area-map-gis-data",
-    dataset == "Oculina Bank HAPC" ~ "NOAA Fisheries. (01 July 2013). Oculina Bank HAPC. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/oculina-bank-hapc-and-experimental-closed-area-fishery-management-area-map-gis-data",
-    dataset == "Shrimp Fishery Access Areas" ~ "NOAA Fisheries. (01 July 2013). Shrimp Fishery Access Areas. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/shrimp-fishery-access-areas-fishery-management-areas-map-gis-data",
-    dataset == "Golden Crab Fishery Access Areas" ~ "NOAA Fisheries. (01 July 2013). Golden Crab Fishery Access Areas. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/golden-crab-fishery-access-areas-fishery-management-areas-map-gis-data",
-    str_detect(dataset, "Charleston") ~ "NOAA Fisheries. (01 July 2013). Charleston Bump Closed Area. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/charleston-bump-closed-area-fishery-management-area-map-gis-data",
-    dataset == "Northeastern United States Closed Area" ~ "NOAA Fisheries. (01 July 2013). Northeastern United States Closed Area. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/northeastern-united-states-closed-area-fishery-management-area-map-gis-data",
-    dataset == "Smalltooth Sawfish Critical Habitat" ~ "NOAA Fisheries. (01 July 2013). Smalltooth Sawfish Critical Habitat. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/smalltooth-sawfish-critical-habitat-map-and-gis-data",
-    dataset == "East Florida Coast Longline Closed Area" ~ "NOAA Fisheries. (01 July 2013). East Florida Coast Longline Closed Area. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/east-florida-coast-closed-area-fishery-management-area-map-gis-data",
-    dataset == "MaineDMR Lobster Management - Lobster Conservation Areas" ~ "Maine DMR Open Data. (5 April 2022). MaineDMR Lobster Management - Lobster Conservation Areas. https://dmr-maine.opendata.arcgis.com/. Retrieved 28 July 2022: https://dmr-maine.opendata.arcgis.com/datasets/maine::mainedmr-lobster-management-lobster-conservation-areas/about",
-    dataset == "MaineDMR Lobster Boundaries - Lobster Zones" ~ "Maine DMR Open Data. (24 September 2021). MaineDMR Lobster Boundaries - Lobster Zones. https://dmr-maine.opendata.arcgis.com/. Retrieved 28 July 2022: https://dmr-maine.opendata.arcgis.com/datasets/maine::mainedmr-lobster-boundaries-lobster-zones/about",
-    dataset == "MaineDMR Scallop Management - Scallop Zones" ~ "Maine DMR Open Data. (20 March 2019). MaineDMR Lobster Boundaries - Lobster Zones. https://dmr-maine.opendata.arcgis.com/. Retrieved 28 July 2022: https://dmr-maine.opendata.arcgis.com/datasets/maine::mainedmr-scallop-management-scallop-zones/explore?location=43.954756%2C-68.814750%2C8.00"
-  )) %>% 
-  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -sourc, -type, -AREA_NAME, -species_list)  
-
-
-df_final2 <- st_collection_extract(df_final, "POLYGON")
+  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -species_list)  
 ```
 
 ```{r}
 # export shapefile
-st_write(df_whale, file.path(out_final, "USA_right_whale2.shp"))
+st_write(df_final, file.path(out_final, "USA_east.gpkg"))
 ```
  
 ```{r}
 ggplot() +
-  geom_sf(data = world) +
-  geom_sf(data = df_orig, aes(fill = nm_ngls),
-          show.legend = F) +
+#  geom_sf(data = world) +
+  geom_sf(data = east_coast, aes(fill = name_english),
+          show.legend = F) 
   coord_sf(xlim = c(-90, -50),
            ylim = c(20, 50))
 ```
+
+```{r}
+east_coast <- list.files(file.path(out_final),
+                         pattern = "*.gpkg",
+                         full.names = TRUE)
+
+east_coast_tbl <- sapply(east_coast, st_read, simplify = FALSE)
+
+east_coast_tbl_2 <- east_coast_tbl %>% 
+  bind_rows() %>% 
+  select(-source) %>% 
+  rename(source = citation) %>% 
+  relocate(source, .before = source_date)
+
+ggplot() +
+  geom_sf(data = east_coast_tbl_2, aes(fill = name_english),
+          show.legend = F)
+
+st_write(east_coast_tbl_2, file.path(out_final, "USA_east_final.gpkg"))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

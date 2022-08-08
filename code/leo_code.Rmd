@@ -19,15 +19,15 @@ library(tmaptools)
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "us_east_coast", "raw")
+indir <- file.path(basedir, "gulf_of_mexico", "raw")
 outdir <- file.path(basedir, "us_east_coast", "processed")
 plotdir <- "figures"
 ```
 
-MPAs_po
+
 ```{r}
 # read in the data
-df_orig_raw <- st_read(file.path(indir, "right_whale_SMA_all_po.shp")) %>% 
+df_orig_raw <- st_read(file.path(indir, "lobster_trap_gear_po.shp")) %>% 
   clean_names()
 
 # rnaturalearth data
@@ -46,31 +46,33 @@ df <- df_orig_raw %>%
 ```
 
 ```{r}
-df_final <- stur_all %>%  
-  mutate(dataset = "Atlantic Sturgeon critical Habitat",
+df_final <- df_orig_raw %>%  
+  mutate(dataset = "Spiny Lobster Trap Gear Fishery Management Areas",
         country = "USA",
         ocean = "Atlantic",
-        region = leadoffice,
+        region = "Florida Keys",
         agency = "NOAA",
-        zone_id = as.character(id),
-        zone_name = unit,
-        type = "critical habitat",
-        species = "atlantic sturgeon",
+        zone_id = as.character(lobster_id),
+        zone_name = lobster_id,
+        type = "management",
+        species = "spiny lobster",
         species_list = NA,
-        source = "https://www.fisheries.noaa.gov/resource/map/atlantic-sturgeon-critical-habitat-map-and-gis-data") %>% 
-  select(dataset, country, ocean, region, agency, zone_id, zone_name, type, species, species_list, source) %>% 
+        source = "https://www.fisheries.noaa.gov/resource/map/spiny-lobster-trap-gear-fishery-management-areas-map-gis-data",
+        citation = "NOAA Fisheries. (18 October 2019). Spiny Lobster Trap Gear Fishery Management Areas. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/spiny-lobster-trap-gear-fishery-management-areas-map-gis-data") %>% 
+  select(dataset, country, ocean, region, agency, zone_id, zone_name, type, species, species_list, source, citation) %>% 
  st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(df_final, file = file.path(outdir, "USA_atlantic_sturgeon_critical_habitat.Rds"))
+saveRDS(df_final, file = file.path(outdir, "USA_spiny_lobster_mgmt_areas.Rds"))
 ```
 
 ```{r}
 ggplot() +
-  geom_sf(data = world) +
-  geom_sf(data = stur_all, fill = NA) +
+#  geom_sf(data = world) +
+  geom_sf(data = df_orig_raw, aes(fill = lobster_id),
+          alpha = 0.5) 
   coord_sf(xlim = c(-86, -66),
            ylim = c(30, 46)) 
 ```
