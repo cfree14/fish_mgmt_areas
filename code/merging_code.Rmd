@@ -17,9 +17,7 @@ library(rnaturalearth)
 # Create file paths
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "nefsc_stat_areas", "raw")
-nefsc_dir <- file.path(basedir, "nefsc_stat_areas", "processed")
-gulf_dir <- file.path(basedir, "gulf_of_mexico", "processed")
+chiledir <- file.path(basedir, "chile", "processed")
 out_final <- file.path(basedir, "processed_files")
 plotdir <- "figures"
 ```
@@ -29,32 +27,17 @@ plotdir <- "figures"
 world <- ne_countries(scale = "medium", returnclass = "sf")
 # read in the data
 
-nefsc <- list.files(file.path(nefsc_dir),
+colombia <- st_read(file.path(out_final, "Colombia_shrimp_fisheries_zoning.gpkg"))
+
+chile <- list.files(file.path(chiledir),
                     pattern = "*.Rds",
                     full.names = TRUE)
 
-nefsc_tbl <- sapply(nefsc, readRDS, simplify = FALSE) 
+chile_tbl <- sapply(chile, readRDS, simplify = FALSE) 
 
-nefsc_tbl_2 <- nefsc_tbl %>% 
+chile_tbl_2 <- chile_tbl %>% 
   bind_rows() %>% 
-  mutate(species = str_to_lower(species)) %>% 
-  separate_rows(country, sep = "/") %>% 
-  mutate(iso_a3 = case_when(
-    country == "USA" ~ "USA",
-    country == "Canada" ~ "CAN"))
-
-east <- st_read(file.path(out_final, "USA_southeast_coast.gpkg"))
-
-king_mack <- readRDS(file.path(gulf_dir, "USA_king_mackerel_migratory_zones.Rds"))
-lobster <- readRDS(file.path(gulf_dir, "USA_spiny_lobster_mgmt_areas.Rds")) %>% 
-  mutate(zone_name = as.character(zone_name))
-span_mack <- readRDS(file.path(gulf_dir, "USA_spanish_mackerel_migratory_zones.Rds"))
-cobia <- readRDS(file.path(gulf_dir, "USA_cobia_migratory_zones.Rds"))
-
-east_us <- bind_rows(king_mack,
-                     lobster,
-                     span_mack,
-                     cobia)
+  mutate(species = str_to_lower(species)) 
 ```
 
 ```{r}
@@ -80,48 +63,50 @@ df_final_geo <- df_final %>%
 
 
 ```{r}
-df_final <- east_us %>%  
+df_final_col <- colombia %>% 
+  select(-dataset_esp)
+df_final <- chile_tbl_2 %>%  
   mutate(pk_system_history = NA,
          fk_system = NA,
          name_english = dataset,
-         name_local = dataset,
-         additional_descriptor = zone_name,
+         name_local = dataset_esp,
+         additional_descriptor = NA,
          code = NA,
          multispecies = NA,
          multispecies_comment = species,
          fk_system_type = NA,
          fk_system_category = type,
-         fk_system_owner = "NOAA",
+         fk_system_owner = agency,
          fk_system_subowner = NA,
          source = citation,
-         source_date = "2022-07-28",
+         source_date = created,
          usage = NA,
-         lineage = "Downloaded and imported from NOAA on 2022-07-28",
+         lineage = "Downloaded and imported from the Ministry of National Goods of Chile on 2022-07-28",
          comment = NA,
          created_by = "Leonardo Manir Feitosa",
          created_on = "2022-07-28",
          changed_by = NA,
          changed_on = NA,
-         iso_a3 = "USA",
-         area_name = zone_id) %>% 
+         iso_a3 = "CHL",
+         area_name = zone_name) %>% 
   relocate(source, .before = source_date) %>% 
+  relocate(iso_a3, .after = changed_on) %>% 
   mutate(multispecies = case_when(
     str_detect(multispecies_comment, "multi") ~ "1",
     TRUE ~ "0"
-  )) %>% 
-  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -species_list)  
+  )) %>%  
+  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -species_list, -citation, -dataset_esp) 
 ```
 
 ```{r}
 # export shapefile
-st_write(df_final, file.path(out_final, "USA_east.gpkg"))
+st_write(df_final_col, file.path(out_final, "Colombia_shrimp_fisheries_zoning2.gpkg"))
 ```
  
 ```{r}
 ggplot() +
 #  geom_sf(data = world) +
-  geom_sf(data = east_coast, aes(fill = name_english),
-          show.legend = F) 
+  geom_sf(data = df_final, aes(fill = area_name)) 
   coord_sf(xlim = c(-90, -50),
            ylim = c(20, 50))
 ```
@@ -132,6 +117,10 @@ east_coast <- list.files(file.path(out_final),
                          full.names = TRUE)
 
 east_coast_tbl <- sapply(east_coast, st_read, simplify = FALSE)
+
+alaska <- st_read(file.path(out_final, "USA_alaska.gpkg"))
+
+west <- st_read(file_path(out_final, "USA_west.gpkg"))
 
 east_coast_tbl_2 <- east_coast_tbl %>% 
   bind_rows() %>% 

@@ -19,15 +19,18 @@ library(tmaptools)
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "gulf_of_mexico", "raw")
-outdir <- file.path(basedir, "us_east_coast", "processed")
+indir <- file.path(basedir, "ecuador", "raw")
+outdir <- file.path(basedir, "ecuador", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-df_orig_raw <- st_read(file.path(indir, "lobster_trap_gear_po.shp")) %>% 
+df_orig_raw <- readRDS(file.path(coldir, "Colombia_Shrimp_Fisheries_Areas.Rds")) %>% 
+  clean_names()
+
+ecuador_shp <- st_read(file.path(indir, "PESCA_ARPON.shp")) %>% 
   clean_names()
 
 # rnaturalearth data
@@ -46,35 +49,36 @@ df <- df_orig_raw %>%
 ```
 
 ```{r}
-df_final <- df_orig_raw %>%  
-  mutate(dataset = "Spiny Lobster Trap Gear Fishery Management Areas",
-        country = "USA",
-        ocean = "Atlantic",
-        region = "Florida Keys",
-        agency = "NOAA",
-        zone_id = as.character(lobster_id),
-        zone_name = lobster_id,
+df_final <- ecuador_shp %>%   
+  mutate(dataset = "",
+         dataset_esp = "",
+        country = "Chile",
+        ocean = "Pacific",
+        region = "Chile's coast",
+        agency = "Subsecretaría de Pesca y Acuicultura",
+        zone_id = as.character(peso),
+        zone_name = nombre,
         type = "management",
-        species = "spiny lobster",
+        species = "multi-species",
         species_list = NA,
-        source = "https://www.fisheries.noaa.gov/resource/map/spiny-lobster-trap-gear-fishery-management-areas-map-gis-data",
-        citation = "NOAA Fisheries. (18 October 2019). Spiny Lobster Trap Gear Fishery Management Areas. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/spiny-lobster-trap-gear-fishery-management-areas-map-gis-data") %>% 
-  select(dataset, country, ocean, region, agency, zone_id, zone_name, type, species, species_list, source, citation) %>% 
+        source = "https://www.ide.cl/index.php/oceanos-y-costa/item/1492-espacios-costeros-marinos-para-pueblos-originarios-ecmpo",
+        citation = "Ministerio de Bienes Nacionales. (06 July 2021). Marine coastal spaces for native peoples. https://www.ide.cl/. Retrieved 28 July 2022: https://www.ide.cl/index.php/oceanos-y-costa/item/1492-espacios-costeros-marinos-para-pueblos-originarios-ecmpo",
+        created = "2021-07-061") %>% 
+  select(dataset,dataset_esp, country, ocean, region, agency, zone_id, zone_name, type, species, species_list, source, citation, created) %>% 
  st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(df_final, file = file.path(outdir, "USA_spiny_lobster_mgmt_areas.Rds"))
+saveRDS(df_final, file = file.path(outdir, "Chile_Marine_coastal_spaces_for_native_peoples.Rds"))
 ```
 
 ```{r}
 ggplot() +
 #  geom_sf(data = world) +
-  geom_sf(data = df_orig_raw, aes(fill = lobster_id),
-          alpha = 0.5) 
-  coord_sf(xlim = c(-86, -66),
-           ylim = c(30, 46)) 
+  geom_sf(data = chile_shp, fill= NA) 
+  coord_sf(xlim = c(-160, -155),
+           ylim = c(18, 24)) 
 ```
 
 ```{r}
