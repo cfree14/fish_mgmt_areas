@@ -17,7 +17,7 @@ library(rnaturalearth)
 # Create file paths
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-chiledir <- file.path(basedir, "chile", "processed")
+urudir <- file.path(basedir, "uruguay", "processed")
 out_final <- file.path(basedir, "processed_files")
 plotdir <- "figures"
 ```
@@ -29,13 +29,13 @@ world <- ne_countries(scale = "medium", returnclass = "sf")
 
 colombia <- st_read(file.path(out_final, "Colombia_shrimp_fisheries_zoning.gpkg"))
 
-chile <- list.files(file.path(chiledir),
+uru <- list.files(file.path(urudir),
                     pattern = "*.Rds",
                     full.names = TRUE)
 
-chile_tbl <- sapply(chile, readRDS, simplify = FALSE) 
+uru_tbl <- sapply(uru, readRDS, simplify = FALSE) 
 
-chile_tbl_2 <- chile_tbl %>% 
+uru_tbl_2 <- uru_tbl %>% 
   bind_rows() %>% 
   mutate(species = str_to_lower(species)) 
 ```
@@ -65,7 +65,8 @@ df_final_geo <- df_final %>%
 ```{r}
 df_final_col <- colombia %>% 
   select(-dataset_esp)
-df_final <- chile_tbl_2 %>%  
+
+df_final <- uru_tbl_2 %>%   
   mutate(pk_system_history = NA,
          fk_system = NA,
          name_english = dataset,
@@ -80,14 +81,14 @@ df_final <- chile_tbl_2 %>%
          fk_system_subowner = NA,
          source = citation,
          source_date = created,
-         usage = NA,
-         lineage = "Downloaded and imported from the Ministry of National Goods of Chile on 2022-07-28",
+         usage = "Free use citing Dirección Nacional de Calidad y Evaluación Ambiental (DINACEA) as the source",
+         lineage = "Downloaded and imported from the Ministry of Environment of Uruguay on 2022-07-28",
          comment = NA,
          created_by = "Leonardo Manir Feitosa",
          created_on = "2022-07-28",
          changed_by = NA,
          changed_on = NA,
-         iso_a3 = "CHL",
+         iso_a3 = "URY",
          area_name = zone_name) %>% 
   relocate(source, .before = source_date) %>% 
   relocate(iso_a3, .after = changed_on) %>% 
@@ -95,12 +96,13 @@ df_final <- chile_tbl_2 %>%
     str_detect(multispecies_comment, "multi") ~ "1",
     TRUE ~ "0"
   )) %>%  
-  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -species_list, -citation, -dataset_esp) 
+  filter(!is.na(name_local)) %>%
+  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -species_list, -citation, -dataset_esp, -created) 
 ```
 
 ```{r}
 # export shapefile
-st_write(df_final_col, file.path(out_final, "Colombia_shrimp_fisheries_zoning2.gpkg"))
+st_write(df_final, file.path(out_final, "Uruguay_fishing_exclusion_zones2.gpkg"))
 ```
  
 ```{r}
