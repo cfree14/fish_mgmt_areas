@@ -17,7 +17,7 @@ library(rnaturalearth)
 # Create file paths
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-urudir <- file.path(basedir, "uruguay", "processed")
+perudir <- file.path(basedir, "peru", "processed")
 out_final <- file.path(basedir, "processed_files")
 plotdir <- "figures"
 ```
@@ -27,15 +27,17 @@ plotdir <- "figures"
 world <- ne_countries(scale = "medium", returnclass = "sf")
 # read in the data
 
-colombia <- st_read(file.path(out_final, "Colombia_shrimp_fisheries_zoning.gpkg"))
+suri_updated <- readRDS(file.path(outdir, "Suriname_fisheries_management_areas.Rds"))
 
-uru <- list.files(file.path(urudir),
+peru_updated <- st_read(file.path(out_final, "Peru_fishing_zones.gpkg"))
+
+canada_all <- list.files(file.path(outdir),
                     pattern = "*.Rds",
                     full.names = TRUE)
 
-uru_tbl <- sapply(uru, readRDS, simplify = FALSE) 
+canada_all_tbl <- sapply(canada_all, readRDS, simplify = FALSE) 
 
-uru_tbl_2 <- uru_tbl %>% 
+canada_all_tbl_2 <- canada_all_tbl %>% 
   bind_rows() %>% 
   mutate(species = str_to_lower(species)) 
 ```
@@ -66,11 +68,11 @@ df_final_geo <- df_final %>%
 df_final_col <- colombia %>% 
   select(-dataset_esp)
 
-df_final <- uru_tbl_2 %>%   
+df_final <- canada_all_tbl_2  %>%   
   mutate(pk_system_history = NA,
          fk_system = NA,
          name_english = dataset,
-         name_local = dataset_esp,
+         name_local = dataset,
          additional_descriptor = NA,
          code = NA,
          multispecies = NA,
@@ -81,14 +83,14 @@ df_final <- uru_tbl_2 %>%
          fk_system_subowner = NA,
          source = citation,
          source_date = created,
-         usage = "Free use citing Dirección Nacional de Calidad y Evaluación Ambiental (DINACEA) as the source",
-         lineage = "Downloaded and imported from the Ministry of Environment of Uruguay on 2022-07-28",
+         usage = NA,
+         lineage = "Downloaded and imported from the DFO and PSMFC on 2022-07-28",
          comment = NA,
          created_by = "Leonardo Manir Feitosa",
          created_on = "2022-07-28",
          changed_by = NA,
          changed_on = NA,
-         iso_a3 = "URY",
+         iso_a3 = "CAN",
          area_name = zone_name) %>% 
   relocate(source, .before = source_date) %>% 
   relocate(iso_a3, .after = changed_on) %>% 
@@ -96,13 +98,12 @@ df_final <- uru_tbl_2 %>%
     str_detect(multispecies_comment, "multi") ~ "1",
     TRUE ~ "0"
   )) %>%  
-  filter(!is.na(name_local)) %>%
-  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -species_list, -citation, -dataset_esp, -created) 
+  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -citation, -created) 
 ```
 
 ```{r}
 # export shapefile
-st_write(df_final, file.path(out_final, "Uruguay_fishing_exclusion_zones2.gpkg"))
+st_write(df_final, file.path(out_final, "Canada_mgmt_areas.gpkg"))
 ```
  
 ```{r}

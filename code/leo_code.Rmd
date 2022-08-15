@@ -19,18 +19,18 @@ library(tmaptools)
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "uruguay", "raw")
-outdir <- file.path(basedir, "uruguay", "processed")
+indir <- file.path(basedir, "gulf_of_mexico", "raw")
+outdir <- file.path(basedir, "gulf_of_mexico", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-df_orig_raw <- st_read(file.path(indir, "c302Polygon.shp")) %>% 
+df_orig_raw <- st_read(file.path(indir, "InsideOutside2017_New_Lines.shp")) %>% 
   clean_names()
 
-uru_rds <- readRDS(file.path(outdir, "Uruguay_anchovy.Rds")) %>% 
+texas <- readRDS(file.path(outdir, "Gulf_ReefLL_seasonal_po.Rds")) %>% 
   clean_names()
 
 # rnaturalearth data
@@ -38,8 +38,11 @@ world <- ne_countries(scale = "medium", returnclass = "sf")
 ```
 
 ```{r}
-uru_rds <- uru_rds %>% 
-  mutate(citation = "Dirección Nacional de Calidad y Evaluación Ambiental. (07 June 2017). Anchovy fisheries prohibited area. https://www.ambiente.gub.uy/geoservicios/. Retrieved 28 July 2022: https://www.ambiente.gub.uy/geoserver/u19600217/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=u19600217:c302&outputFormat=SHAPE-ZIP")
+texas_new <- texas %>% 
+   mutate(type = "management") %>% 
+   mutate(citation = "NOAA Fisheries. (18 October 2019). Seasonal Prohibitions for Bottom Longline Reef Fish Fishery Management Area. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/seasonal-prohibitions-bottom-longline-reef-fish-fishery-management-area-map-gis-data") %>% 
+   mutate(created = "2019-10-18") %>% 
+   mutate(zone_id = as.character(zone_id))
 ```
 
 
@@ -52,37 +55,41 @@ wgs84 <- st_crs("+proj=longlat +datum=WGS84")
 # Inspect attribute table
 df <- df_orig_raw %>% 
   st_drop_geometry() 
+
+df2 <- c_rica %>% 
+  st_drop_geometry() 
 ```
 
 ```{r}
+df_orig_bind <- bind_rows(df_orig_raw, df_orig_raw2)
+
 df_final <- df_orig_raw %>%   
-  mutate(dataset = "Stripped weakfish fisheries prohibited area",
-         dataset_esp = "Veda pesca pescadilla",
-        country = "Uruguay",
-        ocean = "Atlantic",
-        region = "East coast",
-        agency = "Ministry of Environment of Uruguay",
-        zone_id = as.character(id),
-        zone_name = area_veda,
-        type = "exclusion zone",
-        species = "stripped weakfish",
+  mutate(dataset = "Pacific Fishery Management Areas Inside Outside",
+        country = "Canada",
+        ocean = "Pacific",
+        region = "British Columbia",
+        agency = "DFO",
+        zone_id = as.character(mgmt_area),
+        zone_name = area_name,
+        type = "management",
+        species = "multi-species",
         species_list = NA,
-        source = "https://www.ambiente.gub.uy/geoserver/u19600217/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=u19600217:c302&outputFormat=SHAPE-ZIP",
-        citation = "Dirección Nacional de Calidad y Evaluación Ambiental. (07 June 2017). Stripped weakfish fisheries prohibited area. https://www.ambiente.gub.uy/geoservicios/. Retrieved 28 July 2022: https://www.ambiente.gub.uy/geoserver/u19600217/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=u19600217:c302&outputFormat=SHAPE-ZIP",
-        created = "2017-06-07") %>% 
-  select(dataset,dataset_esp, country, ocean, region, agency, zone_id, zone_name, type, species, species_list, source, citation, created) %>% 
+        source = "https://marine.rutgers.edu/~cfree/files/dfo_shapefiles/dfo_west_pfma_areas.zip",
+        citation = "Fisheries and Oceans Canada DFO. (). Pacific Fishery Management Areas. https://marine.rutgers.edu/~cfree/. Retrieved 28 July 2022: https://marine.rutgers.edu/~cfree/files/dfo_shapefiles/dfo_west_pfma_areas.zip",
+  created = NA) %>% 
+  select(dataset, country, ocean, region, agency, zone_id, zone_name, type, species, species_list, source, citation, created) %>% 
  st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(uru_rds, file = file.path(outdir, "Uruguay_anchovy.Rds"))
+saveRDS(texas_new, file = file.path(outdir, "USA_bottom_longline.Rds"))
 ```
 
 ```{r}
 ggplot() +
 #  geom_sf(data = world) +
-  geom_sf(data = chile_shp, fill= NA) 
+  geom_sf(data = texas_new, fill= NA) 
   coord_sf(xlim = c(-160, -155),
            ylim = c(18, 24)) 
 ```
