@@ -17,62 +17,43 @@ library(rnaturalearth)
 # Create file paths
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-perudir <- file.path(basedir, "peru", "processed")
+bradir <- file.path(basedir, "brazil", "processed")
 out_final <- file.path(basedir, "processed_files")
 plotdir <- "figures"
 ```
 
 ```{r}
-
+# reading world data from rnaturalearth to make verification plots
 world <- ne_countries(scale = "medium", returnclass = "sf")
-# read in the data
 
+# read in the data built
 suri_updated <- readRDS(file.path(outdir, "Suriname_fisheries_management_areas.Rds"))
 
-peru_updated <- st_read(file.path(out_final, "Peru_fishing_zones.gpkg"))
-
-canada_all <- list.files(file.path(outdir),
+brazil_all <- list.files(file.path(bradir),
                     pattern = "*.Rds",
                     full.names = TRUE)
 
-canada_all_tbl <- sapply(canada_all, readRDS, simplify = FALSE) 
+brazil_all_tbl <- sapply(brazil_all, readRDS, simplify = FALSE) 
 
-canada_all_tbl_2 <- canada_all_tbl %>% 
+brazil_all_tbl_2 <- brazil_all_tbl %>% 
   bind_rows() %>% 
   mutate(species = str_to_lower(species)) 
 ```
 
 ```{r}
-# wrangling and plotting
+# removing geometry to inspect the data
 df_orig_geo <- df_orig %>% 
-  st_drop_geometry()
-
-stur_2_geo <- df_sturg %>% 
-  st_drop_geometry()
-
-nefsc_tbl_geo <- nefsc_tbl_2 %>%
-  st_drop_geometry()
-
-whale_geo <- df_whale %>% 
-  st_drop_geometry()
-
-df_orig_geo <- df_orig %>% 
-  st_drop_geometry()
-
-df_final_geo <- df_final %>% 
   st_drop_geometry()
 ```
 
 
 ```{r}
-df_final_col <- colombia %>% 
-  select(-dataset_esp)
-
-df_final <- canada_all_tbl_2  %>%   
+# Data wrangling to final format accoding to the manual
+df_final <- brazil_all_tbl_2 %>%   
   mutate(pk_system_history = NA,
          fk_system = NA,
          name_english = dataset,
-         name_local = dataset,
+         name_local = dataset_prt,
          additional_descriptor = NA,
          code = NA,
          multispecies = NA,
@@ -83,14 +64,14 @@ df_final <- canada_all_tbl_2  %>%
          fk_system_subowner = NA,
          source = citation,
          source_date = created,
-         usage = NA,
-         lineage = "Downloaded and imported from the DFO and PSMFC on 2022-07-28",
+         usage = "restricted",
+         lineage = "Received by email from Rodrigo Barreto (rodrigorpbarreto@gmail.com) on 2022-04-18",
          comment = NA,
          created_by = "Leonardo Manir Feitosa",
-         created_on = "2022-07-28",
+         created_on = "2022-04-18",
          changed_by = NA,
          changed_on = NA,
-         iso_a3 = "CAN",
+         iso_a3 = "BRA",
          area_name = zone_name) %>% 
   relocate(source, .before = source_date) %>% 
   relocate(iso_a3, .after = changed_on) %>% 
@@ -98,55 +79,14 @@ df_final <- canada_all_tbl_2  %>%
     str_detect(multispecies_comment, "multi") ~ "1",
     TRUE ~ "0"
   )) %>%  
-  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -citation, -created) 
+  select(-dataset, -country, -ocean, -region, -agency, -zone_id, -zone_name, -species, -type, -citation, -created, -dataset_prt, -species_list) 
 ```
 
 ```{r}
 # export shapefile
-st_write(df_final, file.path(out_final, "Canada_mgmt_areas.gpkg"))
+st_write(df_final, file.path(out_final, "Brazil_final.gpkg"))
 ```
  
-```{r}
-ggplot() +
-#  geom_sf(data = world) +
-  geom_sf(data = df_final, aes(fill = area_name)) 
-  coord_sf(xlim = c(-90, -50),
-           ylim = c(20, 50))
-```
-
-```{r}
-east_coast <- list.files(file.path(out_final),
-                         pattern = "*.gpkg",
-                         full.names = TRUE)
-
-east_coast_tbl <- sapply(east_coast, st_read, simplify = FALSE)
-
-alaska <- st_read(file.path(out_final, "USA_alaska.gpkg"))
-
-west <- st_read(file_path(out_final, "USA_west.gpkg"))
-
-east_coast_tbl_2 <- east_coast_tbl %>% 
-  bind_rows() %>% 
-  select(-source) %>% 
-  rename(source = citation) %>% 
-  relocate(source, .before = source_date)
-
-ggplot() +
-  geom_sf(data = east_coast_tbl_2, aes(fill = name_english),
-          show.legend = F)
-
-st_write(east_coast_tbl_2, file.path(out_final, "USA_east_final.gpkg"))
-```
-
-
-
-
-
-
-
-
-
-
 
 
 

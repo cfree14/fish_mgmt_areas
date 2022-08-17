@@ -10,41 +10,26 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(rnaturalearth)
 library(sf)
-library(here)
-library(tmap)
 library(janitor)
-library(tmaptools)
 ```
 
 ```{r}
 # Set directories
 basedir <- "G:/Meu Drive/fish_mgmt_areas/data"
-indir <- file.path(basedir, "gulf_of_mexico", "raw")
-outdir <- file.path(basedir, "gulf_of_mexico", "processed")
+indir <- file.path(basedir, "brazil", "raw")
+outdir <- file.path(basedir, "brazil", "processed")
 plotdir <- "figures"
 ```
 
 
 ```{r}
 # read in the data
-df_orig_raw <- st_read(file.path(indir, "InsideOutside2017_New_Lines.shp")) %>% 
-  clean_names()
-
-texas <- readRDS(file.path(outdir, "Gulf_ReefLL_seasonal_po.Rds")) %>% 
+df_orig_raw <- st_read(file.path(indir, "ZonaCosteiraMarinha_FINAL.shp")) %>% 
   clean_names()
 
 # rnaturalearth data
 world <- ne_countries(scale = "medium", returnclass = "sf")
 ```
-
-```{r}
-texas_new <- texas %>% 
-   mutate(type = "management") %>% 
-   mutate(citation = "NOAA Fisheries. (18 October 2019). Seasonal Prohibitions for Bottom Longline Reef Fish Fishery Management Area. https://www.fisheries.noaa.gov/. Retrieved 28 July 2022: https://www.fisheries.noaa.gov/resource/map/seasonal-prohibitions-bottom-longline-reef-fish-fishery-management-area-map-gis-data") %>% 
-   mutate(created = "2019-10-18") %>% 
-   mutate(zone_id = as.character(zone_id))
-```
-
 
 ```{r}
 # Set coordinate system
@@ -61,74 +46,36 @@ df2 <- c_rica %>%
 ```
 
 ```{r}
-df_orig_bind <- bind_rows(df_orig_raw, df_orig_raw2)
-
+# data wrangling for formating according to internal format
 df_final <- df_orig_raw %>%   
-  mutate(dataset = "Pacific Fishery Management Areas Inside Outside",
-        country = "Canada",
-        ocean = "Pacific",
-        region = "British Columbia",
-        agency = "DFO",
-        zone_id = as.character(mgmt_area),
-        zone_name = area_name,
-        type = "management",
+  mutate(dataset = "Brazilian coast elasmobranch management zones",
+         dataset_prt = "Zonas de manejo para elasmobrânquios costa brasileira",
+        country = "Brazil",
+        ocean = "Atlantic",
+        region = "East South America",
+        agency = "ICMBIO",
+        zone_id = as.character(objectid),
+        zone_name = nome_ap,
+        type = "critical habitat",
         species = "multi-species",
         species_list = NA,
-        source = "https://marine.rutgers.edu/~cfree/files/dfo_shapefiles/dfo_west_pfma_areas.zip",
-        citation = "Fisheries and Oceans Canada DFO. (). Pacific Fishery Management Areas. https://marine.rutgers.edu/~cfree/. Retrieved 28 July 2022: https://marine.rutgers.edu/~cfree/files/dfo_shapefiles/dfo_west_pfma_areas.zip",
+        source = "Received by email from Rodrigo Barreto (rodrigorpbarreto@gmail.com) on 2022/04/18",
+        citation = "ICMBIO. (). Brazilian coast elasmobranch management zones. https://www.icmbio.gov.br/. Received by email from Rodrigo Barreto (rodrigorpbarreto@gmail.com) on 2022/04/18",
   created = NA) %>% 
-  select(dataset, country, ocean, region, agency, zone_id, zone_name, type, species, species_list, source, citation, created) %>% 
+  select(dataset, dataset_prt, country, ocean, region, agency, zone_id, zone_name, type, species, species_list, source, citation, created) %>% 
  st_transform(wgs84)
 ```
 
 ```{r}
 # Create output RDS file
-saveRDS(texas_new, file = file.path(outdir, "USA_bottom_longline.Rds"))
+saveRDS(df_final, file = file.path(outdir, "Brazil_all.Rds"))
 ```
 
 ```{r}
+# code for checking plots
 ggplot() +
 #  geom_sf(data = world) +
-  geom_sf(data = texas_new, fill= NA) 
+  geom_sf(data = df_orig_raw, fill= NA) 
   coord_sf(xlim = c(-160, -155),
            ylim = c(18, 24)) 
 ```
-
-```{r}
-stur_1 <- st_read(file.path(indir, "SturgeonAtlantic_AtlanticSubspecies_SouthAtlanticDPS_20170817.shp")) %>% 
-  clean_names()   
-
-stur_2 <- st_read(file.path(indir, "SturgeonAtlantic_AtlanticSubspecies_NewYorkBightDPS_20170817.shp")) %>% 
-  clean_names()  
-
-stur_3 <- st_read(file.path(indir, "SturgeonAtlantic_AtlanticSubspecies_GulfofMaineDPS_20170817.shp")) %>% 
-  clean_names()  
-
-stur_4 <- st_read(file.path(indir, "SturgeonAtlantic_AtlanticSubspecies_CarolinaDPS_20170817.shp")) %>% 
-  clean_names()  
-
-wash_10 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas10.shp")) %>% 
-  clean_names()  
-
-wash_12 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas12.shp")) %>% 
-  clean_names() 
-
-wash_14 <- st_read(file.path(indir, "washington_state_fish_mgmt_areas14.shp")) %>% 
-  clean_names()  
-
-stur_all <- bind_rows(stur_1, stur_2, stur_3, stur_4) %>% 
-   st_transform(wgs84)
-
-stur_all_drop <- stur_all %>% 
-  st_drop_geometry()
-```
-
-
-```{r}
-costa_rica_atl <- readRDS(file.path(outdir, "Costa_Rica_Marine_Areas_of_Responsible_Fishing_Pacific.Rds"))
-
-argentina <- st_zm(argentina, drop = TRUE, what = "ZM")
-
-st_write(argentina, file.path(outdir, "Argentina_fisheries_management_areas.shp"))
-```
-
