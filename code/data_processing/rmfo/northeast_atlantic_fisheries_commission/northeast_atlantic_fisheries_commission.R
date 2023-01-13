@@ -62,13 +62,13 @@ data <- data %>%
     System_category = "Regulatory Area",
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
-    Created_on = Sys.Date() #is this okay or should it be manual?
+    Created_on = Sys.Date() # is this okay or should it be manual?
   ) %>%
   select(-Name)
 
-data$Area_systematic_name_english = c("NEAFC RA 1", "NEAFC RA 2", "NEAFC RA 3") # required
-data$Area_descriptive_name = c("XRR Reykjanes Ridge", "XNS/ Banana Hole", "XBS/Loophole")
-data$Area_code = c(1,2,3) # required
+data$Area_systematic_name_english <- c("NEAFC RA 1", "NEAFC RA 2", "NEAFC RA 3") # required
+data$Area_descriptive_name <- c("XRR Reykjanes Ridge", "XNS/ Banana Hole", "XBS/Loophole")
+data$Area_code <- c(1, 2, 3) # required
 
 # Export data
 ################################################################################
