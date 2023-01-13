@@ -62,7 +62,7 @@ data <- data %>%
     System_category = "Regulatory Area",
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
-    Created_on = Sys.Date()
+    Created_on = Sys.Date() #is this okay or should it be manual?
   ) %>%
   select(-Name)
 
