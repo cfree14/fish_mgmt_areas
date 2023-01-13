@@ -5,6 +5,7 @@ library(sf)
 ################################################################################
 
 # https://www.neafc.org/managing_fisheries/measures/ra_map
+# https://www.fao.org/figis/geoserver/factsheets/rfbs.html?rfb=WECAFC&extent=-140.3828125,-78.6796875,144.3828125,114.6796875&center=2,18&zoom=0&prj=4326
 
 # Directories
 
@@ -58,8 +59,8 @@ data <- data %>%
     System_georef_code = "", # I'm not sure out this
     System_license_terms = "Not explicit/unknown", # required
     System_lineage = "Downloaded and imported from www.neafc.org on 03 Jan 2023", # required
-    System_type = "Regulatory Area", # required IS THIS CORRECT
-    System_category = "Regulatory Area",
+    System_type = "Regulatory Area", # required
+    System_category = "Management Area", # required
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date() # is this okay or should it be manual?
