@@ -20,6 +20,14 @@ wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 # Format data
 
+# Author Surname or name of organisation, Author Firstname.
+# (Date published or last revised). Title of webpage.
+# Title of Website. Retrieved [Date Retrieved]
+# from: website (e.g.: Ministry for Primary Industries (MPI). (10 Jan 2020).
+# Quota Management Areas. Data.gov.nz.
+# Retrieved 30 June 2022:
+# https://mpi.maps.arcgis.com/home/item.html?id=83b5785c0f0b4da1a2c99dadeebdff0a)
+
 data <- data_orig %>%
   # Reproject
   sf::st_transform(wgs84) %>%
