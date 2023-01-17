@@ -28,9 +28,9 @@ data <- data_orig %>%
   # add columns
   mutate(
     Owner_name_english = "", # required
-    Owner_name_localized = "",
+    Owner_name_localized = "", # preferred if no official translation unless not roman alphabet
     Owner_code = "", # required
-    Owner_code_localized = "",
+    Owner_code_localized = "", # preferred if no official translation
     Owner_code_official = "", # required
     Owner_multinational = "", # required
     Owner_country = "",
