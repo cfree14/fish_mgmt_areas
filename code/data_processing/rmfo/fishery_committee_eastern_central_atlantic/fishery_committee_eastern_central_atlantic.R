@@ -52,7 +52,7 @@ data <- data %>%
     System_category = "Management Area", # required
     Area_code = georef_code, # required
     Area_code_official = "1", # required,
-    Area_systematic_name_english = "1",
+    Area_systematic_name_english = "CECAF Area of Competence 1",
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
   )

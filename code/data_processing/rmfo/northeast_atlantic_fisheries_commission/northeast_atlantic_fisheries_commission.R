@@ -93,7 +93,7 @@ data2 <- data2 %>%
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date(),
     Area_code = georef_code,
-    Area_systematic_name_english = "NEAFC Regulatory Area 1",
+    Area_systematic_name_english = "NEAFC Area of competence 4",
     georef_code = as.character(georef_code),
     Area_descriptive_name = ""
   )

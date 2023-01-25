@@ -22,54 +22,37 @@ wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 # Format data
 
-# Author Surname or name of organisation, Author Firstname.
-# (Date published or last revised). Title of webpage.
-# Title of Website. Retrieved [Date Retrieved]
-# from: website (e.g.: Ministry for Primary Industries (MPI). (10 Jan 2020).
-# Quota Management Areas. Data.gov.nz.
-# Retrieved 30 June 2022:
-# https://mpi.maps.arcgis.com/home/item.html?id=83b5785c0f0b4da1a2c99dadeebdff0a)
-
 data <- data_orig %>%
   # Reproject
   sf::st_transform(wgs84) %>%
+  select(geometry, OBJECTID)
+
+data <- data %>%
+  # Reproject
+  sf::st_transform(wgs84) %>%
   # rename to geom
-  rename(geom = geometry) %>% # required
+  rename(geom = geometry,
+         georef_code = OBJECTID) %>% # required
   # add columns
   mutate(
-    Owner_name_english = "", # required
-    Owner_name_localized = "", # preferred if no official translation unless not roman alphabet
-    Owner_code = "", # required
-    Owner_code_localized = "", # preferred if no official translation
-    Owner_code_official = "", # required
-    Owner_multinational = "", # required
-    Owner_country = "",
-    System_name_english = "", # required
-    System_name_localized = "",
-    System_additional_descriptor = "",
-    System_code = "", # required
-    System_code_localized = "",
-    System_code_official = "", # required
-    System_code_disambiguation = "",
-    System_multispecies = "",
-    System_species_description = "",
-    System_source = "", # required
-    System_source_date = "2020-01-30",
+    Owner_name_english = "South East Atlantic Fisheries Organisation", # required
+    Owner_code = "SEAFO", # required
+    Owner_code_official = "1", # required
+    Owner_multinational = "1", # required
+    System_name_english = "SEAFO Area of Competence", # required
+    System_code = "SEAFOAoC", # required
+    System_code_official = "0", # required
+    System_multispecies = "1",
+    System_source = "Food and Agriculture Organization (FAO). (30 Jan 2020). Geographic Area of Competence of South East Atlantic Fisheries Organisation (SEAFO). data.apps.fao.org. Retrieved 17 Jan 2023: https://data.apps.fao.org/map/catalog/srv/eng/catalog.search#/metadata/fao-rfb-map-seafo", # required
+    System_source_date = "2020-01-30", # required
     System_shape_file = "RFB_SEAFO.zip",
-    System_georef_code = "",
-    System_license_terms = "", # required
+    System_license_terms = "Copyleft- Attribution only", # required
     System_lineage = "Downloaded and imported from data.apps.fao.org on 17 Jan 2023", # required
-    System_comment = "",
-    System_type = "", # required
-    System_type_code = "",
-    System_category = "", # required
-    Area_systematic_name_english = "", # required
-    Area_systematic_name_localized = "",
-    Area_descriptive_name = "",
-    Area_code = "", # required
-    Area_code_official = "", # required
-    Area_parent_area = "",
-    Area_comment = "",
+    System_type = "Area of Competence", # required
+    System_category = "Management Area", # required
+    Area_code = georef_code, # required
+    Area_systematic_name_english = "SEAFO Area of Competence 26",
+    Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
   )
@@ -77,4 +60,4 @@ data <- data_orig %>%
 # Export data
 ################################################################################
 
-saveRDS(data, file = file.path(basedir, "processed", "rmfo", "XXX", "XXX.Rds"))
+saveRDS(data, file = file.path(basedir, "processed", "rmfo", "southeast_atlantic_fisheries_organization", "southeast_atlantic_fisheries_organization.Rds"))
