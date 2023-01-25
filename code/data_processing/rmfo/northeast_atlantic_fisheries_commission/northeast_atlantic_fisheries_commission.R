@@ -82,7 +82,7 @@ data2 <- data2 %>%
     System_code = "NEAFCAoC", # required
     System_code_official = 0, # required
     System_multispecies = "1",
-    System_source = "North-East Atlantic Fisheries Commision (FAO). (30 Jan 2020). Geographic Area of Competence of North-East Atlantic Fisheries Commission (NEAFC). data.apps.fao.org. Retrieved 17 Jan 2023: https://data.apps.fao.org/map/catalog/srv/eng/catalog.search#/metadata/fao-rfb-map-neafc", # required
+    System_source = "Food and Agriculture Organization (FAO). (30 Jan 2020). Geographic Area of Competence of North-East Atlantic Fisheries Commission (NEAFC). data.apps.fao.org. Retrieved 17 Jan 2023: https://data.apps.fao.org/map/catalog/srv/eng/catalog.search#/metadata/fao-rfb-map-neafc", # required
     System_source_date = "2020-01-30", # required
     System_shape_file = "RFB_NEAFC.zip", #required
     System_license_terms = "Copyleft- Attribution only", # required
