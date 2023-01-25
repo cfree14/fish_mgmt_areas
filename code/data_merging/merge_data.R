@@ -35,12 +35,17 @@ rmfo5 <- readRDS(file.path(basedir, "processed", "rmfo", "convention_conservatio
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official))
+rmfo6 <- readRDS(file.path(basedir, "processed", "rmfo", "fishery_committee_eastern_central_atlantic", "fishery_committee_eastern_central_atlantic.Rds")) %>%
+  mutate(georef_code = as.character(georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official))
 
 
 # Format data
 ################################################################################
 
-data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5)
+data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6)
 
 data = data_sf %>%
   as.data.frame() %>%
