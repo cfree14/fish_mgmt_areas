@@ -10,7 +10,7 @@ basedir <- "G:/My Drive/projects/mgmt_area_database"
 setwd(basedir)
 
 # Read data
-rmfo1 <- readRDS(file.path(basedir, "processed", "rmfo", "northeast_atlantic_fisheries_commission", "northeast_atlantic_fisheries_commission.Rds")) %>%
+rmfo1 <- readRDS(file.path(basedir, "processed", "rmfo", "northeast_atlantic_fisheries_commission", "northeast_atlantic_fisheries_commission_1.Rds")) %>%
   mutate(georef_code = as.character(georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
@@ -20,11 +20,12 @@ rmfo2 <- readRDS(file.path(basedir, "processed", "rmfo", "caribbean_regional_fis
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official))
-rmfo3 <- readRDS(file.path(basedir, "processed", "rmfo", "commission_conservation_antartic_marine_living_resources", "commission_conservation_antartic_marine_living_resources.Rds")) %>%
+rmfo3 <- readRDS(file.path(basedir, "processed", "rmfo", "commission_conservation_antartic_marine_living_resources", "commission_conservation_antartic_marine_living_resources_1.Rds")) %>%
   mutate(georef_code = as.character(georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
-  mutate(System_code_official = as.character(System_code_official))
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(System_source_date = as.character(System_source_date))
 rmfo4 <- readRDS(file.path(basedir, "processed", "rmfo", "commission_conservation_southern_bluefin_tuna", "commission_conservation_southern_bluefin_tuna.Rds")) %>%
   mutate(georef_code = as.character(georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
@@ -85,11 +86,49 @@ rmfo15 <- readRDS(file.path(basedir, "processed", "rmfo", "western_central_atlan
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official))
+rmfo16 <- readRDS(file.path(basedir, "processed", "rmfo", "northeast_atlantic_fisheries_commission", "northeast_atlantic_fisheries_commission_2.Rds")) %>%
+  mutate(georef_code = as.character(georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official))
+rmfo17 <- readRDS(file.path(basedir, "processed", "rmfo", "commission_conservation_antartic_marine_living_resources", "commission_conservation_antartic_marine_living_resources_2.Rds")) %>%
+  mutate(georef_code = as.character(georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(System_source_date = as.character(System_source_date))
+rmfo18 <- readRDS(file.path(basedir, "processed", "rmfo", "commission_conservation_antartic_marine_living_resources", "commission_conservation_antartic_marine_living_resources_3.Rds")) %>%
+  mutate(georef_code = as.character(georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(System_source_date = as.character(System_source_date))
+rmfo19 <- readRDS(file.path(basedir, "processed", "rmfo", "commission_conservation_antartic_marine_living_resources", "commission_conservation_antartic_marine_living_resources_4.Rds")) %>%
+  mutate(georef_code = as.character(georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(System_source_date = as.character(System_source_date))
+rmfo20 <- readRDS(file.path(basedir, "processed", "rmfo", "commission_conservation_antartic_marine_living_resources", "commission_conservation_antartic_marine_living_resources_5.Rds")) %>%
+  mutate(georef_code = as.character(georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(System_source_date = as.character(System_source_date))
+rmfo21 <- readRDS(file.path(basedir, "processed", "rmfo", "commission_conservation_antartic_marine_living_resources", "commission_conservation_antartic_marine_living_resources_6.Rds")) %>%
+  mutate(georef_code = as.character(georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(System_source_date = as.character(System_source_date))
 
 # Format data
 ################################################################################
 
-data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo13, rmfo14, rmfo15)
+data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo13, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21)
+
+data_sf <- list(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo13, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21) %>%
+  reduce(st_join)
 
 data = data_sf %>%
   as.data.frame() %>%
