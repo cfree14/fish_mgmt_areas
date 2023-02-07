@@ -6,7 +6,7 @@ library(sf)
 
 # Directories
 
-basedir <- "G:/My Drive/projects/mgmt_area_database"
+basedir <- "G:/My Drive/projects/mgmt_area_database_ac"
 setwd(basedir)
 
 # Read data

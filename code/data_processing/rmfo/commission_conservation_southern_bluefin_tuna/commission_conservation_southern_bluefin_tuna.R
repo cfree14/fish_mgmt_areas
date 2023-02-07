@@ -8,11 +8,11 @@ library(sf)
 
 # Directories
 
-basedir <- "G:/My Drive/projects/mgmt_area_database"
+basedir <- "G:/My Drive/projects/mgmt_area_database_ac"
 setwd(basedir)
 
 # Read data
-data_orig <- st_read(file.path(basedir, "raw", "rmfo", "commission_conservation_southern_bluefin_tuna", "RFB_CCSBT.shp"))
+data_orig <- read_csv(file.path(basedir, "raw", "rmfo", "commission_conservation_southern_bluefin_tuna", "CatchByYMGOLoLa.csv"))
 
 # Coordinate system
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
@@ -46,7 +46,7 @@ data <- data %>%
     System_species_description = "Thunnus maccoyii",
     System_source = "Food and Agriculture Organization (FAO). (30 Jan 2020). Geographic Area of Competence of Commission for the Conservation of Southern Bluefin Tuna (CCSBT). data.apps.fao.org. Retrieved 17 Jan 2023: https://data.apps.fao.org/map/catalog/srv/eng/catalog.search#/metadata/fao-rfb-map-ccsbt", # required
     System_source_date = "2020-01-30", # required
-    System_shape_file = "RFB_CCSBT.zip",
+    System_shape_file = "CatchByYMGOLoLa.xlsv",
     System_license_terms = "Copyleft- Attribution only", # required
     System_lineage = "Downloaded and imported from data.apps.fao.org on 17 Jan 2023", # required
     System_type = "Area of Competence", # required
