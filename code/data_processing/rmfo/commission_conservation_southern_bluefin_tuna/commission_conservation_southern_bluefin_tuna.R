@@ -12,7 +12,7 @@ basedir <- "G:/My Drive/projects/mgmt_area_database_ac"
 setwd(basedir)
 
 # Read data
-data_orig <- read_csv(file.path(basedir, "raw", "rmfo", "commission_conservation_southern_bluefin_tuna", "CatchByYMGOLoLa.csv"))
+data_orig <- read_csv(file.path(basedir, "raw", "rmfo", "commission_conservation_southern_bluefin_tuna", "CEData_Longline.csv"))
 
 # Coordinate system
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
