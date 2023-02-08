@@ -60,4 +60,4 @@ data <- data %>%
 # Export data
 ################################################################################
 
-saveRDS(data, file = file.path(basedir, "processed", "rmfo", "northwest_atlantic_fisheries_organization", "northwest_atlantic_fisheries_organization.Rds"))
+saveRDS(data, file = file.path(basedir, "processed", "rmfo", "northwest_atlantic_fisheries_organization", "northwest_atlantic_fisheries_organization_1.Rds"))
