@@ -83,12 +83,6 @@ rmfo12 <- readRDS(file.path(basedir, "processed", "rmfo", "southeast_atlantic_fi
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code))
-rmfo13 <- readRDS(file.path(basedir, "processed", "rmfo", "southern_indian_ocean_fisheries_agreement", "southern_indian_ocean_fisheries_agreement.Rds")) %>%
-  mutate(georef_code = as.character(georef_code)) %>%
-  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
-  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
-  mutate(System_code_official = as.character(System_code_official)) %>%
-  mutate(Area_code = as.character(Area_code))
 rmfo14 <- readRDS(file.path(basedir, "processed", "rmfo", "southpacific_regional_fisheries_management_organization", "southpacific_regional_fisheries_management_organization.Rds")) %>%
   mutate(georef_code = as.character(georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
@@ -152,9 +146,9 @@ rmfo22 <- readRDS(file.path(basedir, "processed", "rmfo", "northwest_atlantic_fi
 # Format data
 ################################################################################
 
-data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo13, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21, rmfo22)
+data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21, rmfo22)
 
-# data_sf <- list(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo13, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21, rmfo22) %>%
+# data_sf <- list(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21, rmfo22) %>%
 #   reduce(st_join)
 
 data = data_sf %>%
