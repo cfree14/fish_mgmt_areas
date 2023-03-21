@@ -57,7 +57,7 @@ data = data %>% # required
     System_code_official = "0", # required
     System_multispecies = "1",
     System_species_description = paste("Cyprinus carpio,", "Chirostoma jordani, and", "Oreochromis spp."),
-    System_source = "ArcGIS Hub. (08 Aug 2022). Mexican Water Bodies. hub.arcgis.com Retrieved 12 March 2023: https://hub.arcgis.com/datasets/eabd5284fd764f0699998eec2f306928/explore?layer=2&location=26.015994%2C-105.024935%2C6.81", # required
+    System_source = "ArcGIS Hub. (08 Aug 2022). Mexican Water Bodies. hub.arcgis.com Retrieved 21 March 2023: https://hub.arcgis.com/datasets/eabd5284fd764f0699998eec2f306928/explore?layer=2&location=26.015994%2C-105.024935%2C6.81", # required
     System_source_date = "2022-08-08", # required
     System_shape_file = "mexico_water_and_popdesn_map.zip",
     System_license_terms = "Not explicit/unknown", # required
