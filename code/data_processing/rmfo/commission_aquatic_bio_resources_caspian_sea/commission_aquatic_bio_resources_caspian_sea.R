@@ -33,9 +33,9 @@ data <- data_orig %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry) %>%
-  rename(System_georef_code = objectid) %>%
+  rename(georef_code = objectid) %>%
   rename(Area_systematic_name_english = name) %>%
-  select(Area_systematic_name_english, geom, System_georef_code)
+  select(Area_systematic_name_english, geom, georef_code)
 
 data = data %>% # required
   # add columns
@@ -56,7 +56,7 @@ data = data %>% # required
     System_type = "Caspian Lake Management Area", # required
     System_category = "Management Area", # required
     Area_systematic_name_english = "Caspian Lake", # required
-    Area_code = System_georef_code,
+    Area_code = georef_code,
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()

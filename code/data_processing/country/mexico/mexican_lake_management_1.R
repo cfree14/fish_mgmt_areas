@@ -18,7 +18,7 @@ data_orig <- st_read(file.path(basedir, "raw", "country", "mexico", "mexico_wate
   # Reproject
   sf::st_transform(wgs84)
 
-st_write(data_orig, file.path(basedir, "raw", "country", "mexico", "pmp_presa_ignacio_allende.shp"))
+# st_write(data_orig, file.path(basedir, "raw", "country", "mexico", "pmp_presa_ignacio_allende.shp"))
 
 # Format data
 ################################################################################
@@ -36,9 +36,9 @@ st_write(data_orig, file.path(basedir, "raw", "country", "mexico", "pmp_presa_ig
 data <- data_orig %>%
   # rename to geom
   rename(geom = geometry) %>%
-  rename(System_georef_code = ObjectID) %>%
+  rename(georef_code = ObjectID) %>%
   rename(Area_systematic_name_localized = NAME) %>%
-  select(Area_systematic_name_localized, geom, System_georef_code)
+  select(Area_systematic_name_localized, geom, georef_code)
 
 data = data %>% # required
   # add columns
@@ -66,7 +66,7 @@ data = data %>% # required
     System_category = "Management Area", # required
     Area_systematic_name_english = "Presa Ignacio Allende", # required
     Area_descriptive_name = "Ignacio Allende Dam",
-    Area_code = System_georef_code,
+    Area_code = georef_code,
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
