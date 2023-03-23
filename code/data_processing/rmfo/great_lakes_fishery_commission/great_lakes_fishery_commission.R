@@ -13,15 +13,21 @@ setwd(basedir)
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 # Read data
-data_orig <- st_read(file.path(basedir, "raw", "rmfo", "great_lakes_fishery_commission", "LAGOS_NE_All_Lakes_1ha.shp"))
+data_orig1 <- st_read(file.path(basedir, "raw", "rmfo", "great_lakes_fishery_commission", "hydro_p_LakeErie.shp")) %>%
+  select(UIDENT, NAMEEN, geometry)
+data_orig2 <- st_read(file.path(basedir, "raw", "rmfo", "great_lakes_fishery_commission", "hydro_p_LakeHuron.shp")) %>%
+  select(UIDENT, NAMEEN, geometry)
+data_orig3 <- st_read(file.path(basedir, "raw", "rmfo", "great_lakes_fishery_commission", "hydro_p_LakeMichigan.shp")) %>%
+  select(UIDENT, NAMEEN, geometry)
+data_orig4 <- st_read(file.path(basedir, "raw", "rmfo", "great_lakes_fishery_commission", "hydro_p_LakeOntario.shp")) %>%
+  select(UIDENT, NAMEEN, geometry)
+data_orig5 <- st_read(file.path(basedir, "raw", "rmfo", "great_lakes_fishery_commission", "hydro_p_LakeSuperior.shp")) %>%
+  select(UIDENT, NAMEEN, geometry)
 
+data_orig = list(data_orig1, data_orig2, data_orig3, data_orig4, data_orig5) %>%
+  reduce(rbind)
 
-%>%
-  filter(NAME == "Presa Ignacio Allende") %>%
-  # Reproject
-  sf::st_transform(wgs84)
-
-# st_write(data_orig, file.path(basedir, "raw", "country", "mexico", "pmp_presa_ignacio_allende.shp"))
+st_write(data_orig, file.path(basedir, "raw", "rmfo", "great_lakes_fishery_commission", "great_lakes.shp"))
 
 # Format data
 ################################################################################
@@ -39,9 +45,9 @@ data_orig <- st_read(file.path(basedir, "raw", "rmfo", "great_lakes_fishery_comm
 data <- data_orig %>%
   # rename to geom
   rename(geom = geometry) %>%
-  rename(georef_code = ObjectID) %>%
-  rename(Area_systematic_name_localized = NAME) %>%
-  select(Area_systematic_name_localized, geom, georef_code)
+  rename(georef_code = UIDENT) %>%
+  rename(Area_systematic_name_english = NAMEEN) %>%
+  select(Area_systematic_name_english, geom, georef_code)
 
 data = data %>% # required
   # add columns
@@ -54,16 +60,15 @@ data = data %>% # required
     System_code = "GL", # required
     System_code_official = "0", # required
     System_multispecies = "1",
-    System_source = "AUTHOR. (DATE). TITLE. SHORT WEB Retrieved 22 March 2023: FULL WEB", # required
-    System_source_date = "2022-08-08", # required
-    System_shape_file = "",
-    System_license_terms = "Copyleft- Attribution only", # required
-    System_lineage = "", # required
+    System_source = "US Geological Survey (USGS). (Jan 01 2010). Great Lakes and Watersheds Shapefiles. www.sciencebase.gov Retrieved 22 March 2023: https://www.sciencebase.gov/catalog/item/530f8a0ee4b0e7e46bd300dd", # required
+    System_source_date = "2010-01-01", # required
+    System_shape_file = "hydro_p_LakeErie.zip, hydro_p_LakeHuron.zip, hydro_p_LakeMichigan.zip, hydro_p_LakeOntario.zip, and hydro_p_LakeSuperior.zip",
+    System_license_terms = "Not explicit/unknown", # required
+    System_lineage = "downloaded individual lake shapefiles from ScienceBase and merged them into one shapefile", # required
     System_type = "Management Area", # required
     System_category = "Management Area", # required
-    Area_systematic_name_english = "Great Lakes", # required
-    Area_code = ,
-    Area_code_official = "", # required
+    Area_code = georef_code,
+    Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
   )
