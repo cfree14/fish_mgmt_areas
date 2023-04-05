@@ -29,7 +29,7 @@ sf_use_s2(FALSE)
 data <- data_orig %>%
   # Reproject
   sf::st_transform(wgs84) %>%
-  select(-Description) %>%
+  select(-Description, -Name) %>%
   st_zm(drop = TRUE, what = "ZM") # remove z dimension
 
 data <- data %>%

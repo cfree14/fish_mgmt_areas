@@ -25,19 +25,19 @@ wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 data <- data_orig %>%
   # Reproject
   sf::st_transform(wgs84) %>%
-  select(geometry, GAR_ID, GAR_Name, ModifiedOn, GAR_Long_L)
+  select(geometry, GAR_Name, ModifiedOn, GAR_Long_L)
 
 data <- data %>%
   # Reproject
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry,
-         System_georef_code = "GAR_Long_L",
          Area_systematic_name_english = GAR_Name,
          System_source_date = ModifiedOn,
          Area_code = GAR_Long_L) %>% # required
   # add columns
   mutate(
+    System_georef_code = "GAR_Long_L",
     Owner_name_english = "Commission for the Conservation of Antarctic Marine Living Resources", # required
     Owner_code = "CCAMLR", # required
     Owner_code_official = "1", # required
@@ -46,7 +46,7 @@ data <- data %>%
     System_code = "CCAMLR SSMU", # required
     System_code_official = "1", # required
     System_multispecies = "0",
-    Species_description = "Krill",
+    System_species_description = "Krill",
     System_source = "Commission for the Conservation of Antarctic Marine Living Resources (CCAMLR). (04 Aug 2022). CCAMLR Public Data Repository. github.com. Retrieved 2 Feb 2023: https://github.com/ccamlr/data/tree/main/geographical_data/ssmu", # required
     System_shape_file = "ssmus.zip",
     System_license_terms = "Public Domain", # required

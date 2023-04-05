@@ -55,7 +55,7 @@ data <- data %>%
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date(),
     Area_systematic_name_english = "NEAFC Area of competence 4",
-    georef_code = as.character(System_georef_code),
+    System_georef_code = as.character(System_georef_code),
     Area_descriptive_name = ""
   )
 

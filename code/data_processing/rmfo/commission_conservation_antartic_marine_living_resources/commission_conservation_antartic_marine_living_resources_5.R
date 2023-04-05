@@ -25,19 +25,19 @@ wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 data <- data_orig %>%
   # Reproject
   sf::st_transform(wgs84) %>%
-  select(geometry, GAR_ID, GAR_Name, ModifiedOn, GAR_Long_L)
+  select(geometry, GAR_Name, ModifiedOn, GAR_Long_L)
 
 data <- data %>%
   # Reproject
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry,
-         System_georef_code = "GAR_Long_L",
          Area_systematic_name_english = GAR_Name,
          System_source_date = ModifiedOn,
          Area_code = GAR_Long_L) %>% # required
   # add columns
   mutate(
+    System_georef_code = "GAR_Long_L",
     Owner_name_english = "Commission for the Conservation of Antarctic Marine Living Resources", # required
     Owner_code = "CCAMLR", # required
     Owner_code_official = "1", # required

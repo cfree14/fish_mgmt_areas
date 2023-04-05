@@ -32,7 +32,7 @@ data <- data %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry,
-         area_code = OBJECTID) %>% # required
+         Area_code = OBJECTID) %>% # required
   # add columns
   mutate(
     System_georef_code = "OBJECTID",
