@@ -45,9 +45,10 @@ st_write(data_orig, file.path(basedir, "raw", "rmfo", "great_lakes_fishery_commi
 data <- data_orig %>%
   # rename to geom
   rename(geom = geometry) %>%
-  rename(georef_code = UIDENT) %>%
+  rename(Area_code = UIDENT) %>%
   rename(Area_systematic_name_english = NAMEEN) %>%
-  select(Area_systematic_name_english, geom, georef_code)
+  mutate(System_georef_code = "UIDENT")
+  select(Area_systematic_name_english, geom, System_georef_code, Area_code)
 
 data = data %>% # required
   # add columns
@@ -67,7 +68,6 @@ data = data %>% # required
     System_lineage = "downloaded individual lake shapefiles from ScienceBase and merged them into one shapefile", # required
     System_type = "Management Area", # required
     System_category = "Management Area", # required
-    Area_code = georef_code,
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()

@@ -32,9 +32,10 @@ data <- data %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry,
-         georef_code = OBJECTID) %>% # required
+         Area_code = OBJECTID) %>% # required
   # add columns
   mutate(
+    System_georef_code = "OJBECTID",
     Owner_name_english = "Lake Victoria Fisheries Organization", # required
     Owner_code = "LVFO", # required
     Owner_code_official = "1", # required
@@ -50,7 +51,6 @@ data <- data %>%
     System_lineage = "Downloaded and imported from data.apps.fao.org on 17 Jan 2023", # required
     System_type = "Area of Competence", # required
     System_category = "Management Area", # required
-    Area_code = georef_code, # required
     Area_systematic_name_english = "LVFO Area of Competence 84",
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",

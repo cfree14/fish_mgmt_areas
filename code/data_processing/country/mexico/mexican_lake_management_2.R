@@ -38,9 +38,10 @@ st_write(data_orig, file.path(basedir, "raw", "country", "mexico", ".shp"))
 data <- data_orig %>%
   # rename to geom
   rename(geom = geometry) %>%
-  rename(System_georef_code = ObjectID) %>%
+  rename(Area_code = ObjectID) %>%
   rename(Area_systematic_name_localized = NAME) %>%
-  select(Area_systematic_name_localized, geom, System_georef_code)
+  mutate(System_georef_code = "ObjectID") %>%
+  select(Area_systematic_name_localized, geom, System_georef_code, Area_code)
 
 data = data %>% # required
   # add columns
@@ -68,8 +69,7 @@ data = data %>% # required
     System_category = "Management Area", # required
     Area_systematic_name_english = "Presa Cebolletas", # required
     Area_descriptive_name = "Cebolletas Dam",
-   # Area_code = "",
-    #Area_code_official = "", # required
+    Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
   )

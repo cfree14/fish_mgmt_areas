@@ -32,9 +32,10 @@ data <- data %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry,
-         georef_code = Label) %>% # required
+         Area_code = Label) %>% # required
   # add columns
   mutate(
+    System_georef_code = "Label",
     Owner_name_english = "Northwest Atlantic Fisheries Organization", # required
     Owner_code = "NAFO", # required
     Owner_code_official = "1", # required
@@ -49,7 +50,6 @@ data <- data %>%
     System_license_terms = "Copyleft- Attribution only", # required
     System_lineage = "Downloaded and imported from open.canada.ca on 07 Feb 2023", # required
     System_category = "Management Area", # required
-    Area_code = georef_code, # required
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()

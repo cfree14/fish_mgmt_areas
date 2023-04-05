@@ -32,7 +32,7 @@ data <- data %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry,
-         georef_code = GAR_ID,
+         System_georef_code = "GAR_Long_L",
          Area_systematic_name_english = GAR_Name,
          System_source_date = ModifiedOn,
          Area_code = GAR_Long_L) %>% # required

@@ -32,9 +32,10 @@ data <- data %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry,
-         georef_code = OBJECTID) %>% # required
+         Area_code = OBJECTID) %>% # required
   # add columns
   mutate(
+    System_georef_code = "OBJECTID",
     Owner_name_english = "Commission for the Conservation of Antarctic Marine Living Resources", # required
     Owner_code = "CCAMLR", # required
     Owner_code_official = "1", # required
@@ -51,7 +52,6 @@ data <- data %>%
     System_type = "Area of Competence", # required
     System_category = "Management Area", # required
     Area_systematic_name_english = "CCAMLR Area of Competence 1", # required
-    Area_code = georef_code, # required
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()

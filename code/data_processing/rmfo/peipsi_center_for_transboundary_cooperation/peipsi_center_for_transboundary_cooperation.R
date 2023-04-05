@@ -33,9 +33,10 @@ data <- data_orig %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry) %>%
-  rename(System_georef_code = objectid) %>%
+  rename(Area_code = objectid) %>%
   rename(Area_systematic_name_english = name) %>%
-  select(Area_systematic_name_english, geom, System_georef_code)
+  mutate(System_georef_code = "objectid")
+  select(Area_systematic_name_english, geom, System_georef_code, Area_code)
 
 data = data %>% # required
   # add columns
@@ -56,7 +57,6 @@ data = data %>% # required
     System_type = "Lake Peipsi Management Area", # required
     System_category = "Management Area", # required
     Area_systematic_name_english = "Lake Peipsi", # required
-    Area_code = System_georef_code,
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
@@ -65,4 +65,4 @@ data = data %>% # required
 # Export data
 ################################################################################
 
-saveRDS(data, file = file.path(basedir, "processed", "country", "mexico", "mexican_lake_management_1.Rds"))
+saveRDS(data, file = file.path(basedir, "processed", "rmfo", "peipsi_center_for_transboundary_cooperation", "peipsi_center_for_transboundary_cooperation.Rds"))

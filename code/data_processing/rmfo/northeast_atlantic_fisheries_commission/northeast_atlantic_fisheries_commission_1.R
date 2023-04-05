@@ -35,11 +35,11 @@ data <- data_orig %>%
 data <- data %>%
   # rename to geom
   rename(
-    geom = geometry, # required
-    georef_code = Name
+    geom = geometry
   ) %>% # required
   # add columns
   mutate(
+    System_georef_code = "Name",
     Owner_name_english = "North-East Atlantic Fisheries Commision", # required
     Owner_code = "NEAFC", # required
     Owner_code_official = 1, # required

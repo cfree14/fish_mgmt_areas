@@ -32,9 +32,10 @@ data <- data %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry,
-         georef_code = OBJECTID) %>% # required
+         area_code = OBJECTID) %>% # required
   # add columns
   mutate(
+    System_georef_code = "OBJECTID",
     Owner_name_english = "Western Central Atlantic Fishery Commission", # required
     Owner_code = "WECAFC", # required
     Owner_code_official = "1", # required
@@ -50,7 +51,6 @@ data <- data %>%
     System_lineage = "Downloaded and imported from data.apps.fao.org on 17 Jan 2023", # required
     System_type = "Area of Competence", # required
     System_category = "Management Area", # required
-    Area_code = georef_code, # required
     Area_systematic_name_english = "WECAFC Area of Competence 30",
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
