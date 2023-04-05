@@ -31,10 +31,11 @@ data <- data_orig %>%
 
 data <- data %>%
   # rename to geom
-  rename(geom = geometry, #required
-         georef_code = OBJECTID) %>% # required
+  rename(geom = geometry,
+         Area_code = OBJECTID) %>% # required
   # add columns
   mutate(
+    System_georef_code = "OJBECTID",
     Owner_name_english = "North-East Atlantic Fisheries Commision", # required
     Owner_code = "NEAFC", # required
     Owner_code_official = 1, # required
@@ -53,9 +54,8 @@ data <- data %>%
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date(),
-    Area_code = georef_code,
     Area_systematic_name_english = "NEAFC Area of competence 4",
-    georef_code = as.character(georef_code),
+    georef_code = as.character(System_georef_code),
     Area_descriptive_name = ""
   )
 
