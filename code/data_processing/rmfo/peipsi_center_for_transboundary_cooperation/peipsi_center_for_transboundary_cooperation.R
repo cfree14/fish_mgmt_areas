@@ -13,7 +13,8 @@ setwd(basedir)
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 # Read data
-data_orig <- st_read(file.path(basedir, "raw", "rmfo", "peipsi_center_for_transboundary_cooperation", "E_201_meri_a.shp"))
+data_orig <- st_read(file.path(basedir, "raw", "base_maps", "ne_10m_lakes.shp")) %>%
+  filter(name == "Lake Peipus")
 
 # Format data
 ################################################################################
@@ -33,9 +34,9 @@ data <- data_orig %>%
   sf::st_transform(wgs84) %>%
   # rename to geom
   rename(geom = geometry) %>%
-  rename(Area_code = objectid) %>%
+  rename(Area_code = scalerank) %>%
   rename(Area_systematic_name_english = name) %>%
-  mutate(System_georef_code = "objectid")
+  mutate(System_georef_code = "scalerank") %>%
   select(Area_systematic_name_english, geom, System_georef_code, Area_code)
 
 data = data %>% # required
@@ -49,11 +50,11 @@ data = data %>% # required
     System_code = "Peipsi CTC MA", # required
     System_code_official = "0", # required
     System_multispecies = "1",
-    System_source = "Republic of Estonia. (01 Jan 2018). Estonian Land Board 2018. geoportaal.maaamet.ee Retrieved 21 March 2023: https://geoportaal.maaamet.ee/eng/Maps-and-Data/Estonian-Topographic-Database/Download-Topographic-Data-p618.html", # required
-    System_source_date = "2018-01-01", # required
-    System_shape_file = "ETAK_Eesti_SHP_veekogud.zip",
+    System_source = "Patterson, Tom. Kelso, Nathaniel Vaughn. (2012). World Lakes, 1:10 million (2012). [Shapefile]. North American Cartographic Information Society. Retrieved on April 05 2020 from https://earthworks.stanford.edu/catalog/stanford-vb803vy4402", # required
+    System_source_date = "01-01-2012", # required
+    System_shape_file = "data.zip",
     System_license_terms = "Copyleft- Attribution only", # required
-    System_lineage = "", # required
+    System_lineage = "Filtered ne_10m_lakes.shp to contain only Lake Peipus on 05 April 2023", # required
     System_type = "Lake Peipsi Management Area", # required
     System_category = "Management Area", # required
     Area_systematic_name_english = "Lake Peipsi", # required

@@ -160,11 +160,17 @@ rmfo25 <- readRDS(file.path(basedir, "processed", "rmfo", "great_lakes_fishery_c
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code))
+rmfo26 <- readRDS(file.path(basedir, "processed", "rmfo", "peipsi_center_for_transboundary_cooperation", "peipsi_center_for_transboundary_cooperation.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
 
 # Format data
 ################################################################################
 
-data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21, rmfo22, rmfo23, rmfo24, rmfo25)
+data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21, rmfo22, rmfo23, rmfo24, rmfo25, rmfo26)
 
 # data_sf <- list(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10, rmfo11, rmfo12, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20, rmfo21, rmfo22) %>%
 #   reduce(st_join)
