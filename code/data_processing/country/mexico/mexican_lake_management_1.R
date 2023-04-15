@@ -18,8 +18,6 @@ data_orig <- st_read(file.path(basedir, "raw", "country", "mexico", "mexico_wate
   # Reproject
   sf::st_transform(wgs84)
 
-# st_write(data_orig, file.path(basedir, "raw", "country", "mexico", "pmp_presa_ignacio_allende.shp"))
-
 # Format data
 ################################################################################
 
