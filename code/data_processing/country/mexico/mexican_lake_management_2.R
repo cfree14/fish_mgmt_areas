@@ -16,6 +16,8 @@ wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 # Read data
 data_orig <- st_read(file.path(basedir, "raw", "country", "mexico", "", ".shp")) %>%
+
+
   filter() %>%
   # Reproject
   sf::st_transform(wgs84)
