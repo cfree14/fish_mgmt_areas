@@ -12,8 +12,10 @@ basedir <- "G:/My Drive/projects/mgmt_area_database_ac"
 setwd(basedir)
 
 # Read data
-data_orig <- st_read(file.path(basedir, "raw", "rmfo", "pacific_salmon_commission", "RFB_PSC.shp"))
+data_orig1 <- st_read(file.path(basedir, "raw", "rmfo", "pacific_salmon_commission", "us_ps.shp"))
+data_orig2 <- st_read(file.path(basedir, "raw", "rmfo", "pacific_salmon_commission", "ca_ps.shp"))
 
+data_orig = rbind(data_orig1, data_orig2)
 # Coordinate system
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
@@ -21,21 +23,14 @@ wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 ################################################################################
 
 # Format data
-
 data <- data_orig %>%
   # Reproject
   sf::st_transform(wgs84) %>%
-  select(geometry, OBJECTID)
-
-data <- data %>%
-  # Reproject
-  sf::st_transform(wgs84) %>%
   # rename to geom
-  rename(geom = geometry,
-         Area_code = OBJECTID) %>% # required
+  rename(geom = geometry) %>% # required
   # add columns
   mutate(
-    System_georef_code = "OJBECTID",
+    System_georef_code = "Area_code",
     Owner_name_english = "Pacific Salmon Commission", # required
     Owner_code = "PSC", # required
     Owner_code_official = "1", # required
@@ -45,22 +40,21 @@ data <- data %>%
     System_code_official = "0", # required
     System_multispecies = "1",
     System_species_description = "Salmon",
-    System_source = "Food and Agriculture Organization (FAO). (30 Jan 2020). Geographic Area of Competence of Pacific Salmon Commission (PSC). data.apps.fao.org. Retrieved 17 Jan 2023: https://data.apps.fao.org/map/catalog/srv/eng/catalog.search#/metadata/fao-rfb-map-psc", # required
-    System_source_date = "2020-01-30", # required
-    System_shape_file = "RFB_PSC.zip",
-    System_license_terms = "Copyleft- Attribution only", # required
-    System_lineage = "Downloaded and imported from data.apps.fao.org on 17 Jan 2023", # required
-    System_type = "Area of Competence", # required
+    System_source = "Pacific Salmon Commission. (December 2022). 37th PSC Annual Report (2021/22). Retieved on Feb 02 2023 from https://www.psc.org/publications/annual-reports/commission/", # required
+    System_source_date = "2022-12-01", # required
+    System_shape_file = "pacific_salmon.shp",
+    System_license_terms = "Public domain", # required
+    System_lineage = "Digitized using QGIS on 04 April 2023", # required
+    System_type = "Management and Catch Reporting Areas", # required
     System_category = "Management Area", # required
-    Area_code_official = "1", # required
+    Area_code_official = "1", # required,
+    Area_systematic_name_english = paste("Management Area", Area_code),
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
   )
 
-data$Area_systematic_name_english = c("PSC Area of Competence 31",
-                                      "PSC Area of Competence 85")
 
 # Export data
 ################################################################################
 
-saveRDS(data, file = file.path(basedir, "processed", "rmfo", "pacific_salmon_commission", "pacific_salmon_commission.Rds"))
+saveRDS(data, file = file.path(basedir, "processed", "rmfo", "pacific_salmon_commission", "pacific_salmon_commission_2.Rds"))
