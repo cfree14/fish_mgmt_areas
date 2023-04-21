@@ -328,12 +328,6 @@ rmfo53 <- readRDS(file.path(basedir, "processed", "country", "mexico", "mexico_2
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code))
-rmfo54 <- readRDS(file.path(basedir, "processed", "country", "mexico", "mexico_25.Rds")) %>%
-  mutate(System_georef_code = as.character(System_georef_code)) %>%
-  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
-  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
-  mutate(System_code_official = as.character(System_code_official)) %>%
-  mutate(Area_code = as.character(Area_code))
 
 
 # Format data
@@ -344,7 +338,7 @@ data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmf
                      rmfo21, rmfo22, rmfo23, rmfo24, rmfo25, rmfo26, rmfo27, rmfo28, rmfo29, rmfo30,
                      rmfo31, rmfo32, rmfo33, rmfo34, rmfo35, rmfo36, rmfo37, rmfo38, rmfo39, rmfo40,
                      rmfo41, rmfo42, rmfo43, rmfo44, rmfo45, rmfo46, rmfo47, rmfo48, rmfo49, rmfo50,
-                     rmfo51, rmfo52, rmfo53, rmfo54)
+                     rmfo51, rmfo52, rmfo53)
 
 data = data_sf %>%
   as.data.frame() %>%
