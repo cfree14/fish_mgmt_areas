@@ -13,7 +13,7 @@ setwd(basedir)
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 # Read data
-data_orig <- st_read(file.path(basedir, "raw", "country", "mexico", "shapefiles", ".shp")) %>%
+data_orig <- st_read(file.path(basedir, "raw", "country", "mexico", "At_n_Aleta_Azul.shp")) %>%
   sf::st_transform(wgs84)
 
 # Format data
@@ -23,7 +23,8 @@ data_orig <- st_read(file.path(basedir, "raw", "country", "mexico", "shapefiles"
 
 data <- data_orig %>%
   # rename to geom
-  rename(geom = geometry)
+  rename(geom = geometry) %>%
+  mutate(System_georef_code = "Area_code")
 
 data = data %>% # required
   # add columns
@@ -35,23 +36,23 @@ data = data %>% # required
     Owner_code_official = "1", # required
     Owner_multinational = "0", # required
     Owner_country = "mex",
-    System_name_english = "Fisheries Management Plan of ", # required
-    System_name_localized = "Plan de Manejo Pesquero ",
+    System_name_english = "Fishery Management Plan for Bluefin Tuna", # required
+    System_name_localized = "Plan de Manejo Pesquero para Atún Aleta Azul",
     System_code = "FMP", # required
     System_code_localized = "PMP",
     System_code_official = "0", # required
     System_multispecies = "1",
-    System_species_description = paste(""),
-    System_source = "", # required
-    System_source_date = "", # required
-    System_shape_file = ".shp",
+    System_species_description = paste("Thunnus orientalis"),
+    System_source = "Instituto Nacional de Pesca y Acuacultura. (07 April 2021). Plan de Manejo Pesquero para Atún Aleta Azul. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-para-atun-aleta-azul", # required
+    System_source_date = "2021-04-07", # required
+    System_shape_file = "At_n_Aleta_Azul.shp",
     System_license_terms = "Public Domain", # required
-    System_lineage = "Digitized by Alicia Caughman in QGIS on April XX 2023", # required
-    System_type = "", # required
-    System_category = "", # required
-    Area_systematic_name_english = "", # required
-    Area_descriptive_name = "",
-    Area_code_official = "", # required
+    System_lineage = "Digitized by Alicia Caughman in QGIS on April 12 2023", # required
+    System_type = "Thunnus orientalis Species Distribution Area", # required
+    System_category = "Species Distribution Area", # required
+    Area_systematic_name_english = "Bluefine Tuna", # required
+    Area_descriptive_name = "Atún Aleta Azul",
+    Area_code_official = "0", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
   )
