@@ -45,7 +45,7 @@ data <- data_orig %>%
     System_shape_file = "eez_v11.shp",
     System_georef_code = "MRGID",
     System_license_terms = "Copyleft- Attribution only", # required
-    System_lineage = "Filtered eez_v11.shp to so that GEONAME contained \"Antigua\"", # required
+    System_lineage = "Filtered eez_v11.shp to so that GEONAME contained \"Barbuda\"", # required
     System_type = "Antigua and Barbuda EEZ", # required
     System_category = "Management Area", # required
     Area_systematic_name_english = "Antigua and Barbuda EEZ", # required
