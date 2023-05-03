@@ -454,7 +454,7 @@ rmfo75 <- readRDS(file.path(basedir, "processed", "country", "kazakhstan", "kaza
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code))
-rmfo76 <- readRDS(file.path(basedir, "processed", "country", "latvia", "lativa_1.Rds")) %>%
+rmfo76 <- readRDS(file.path(basedir, "processed", "country", "latvia", "latvia_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
@@ -496,6 +496,67 @@ rmfo82 <- readRDS(file.path(basedir, "processed", "country", "myanmar", "myanmar
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code))
+rmfo83 <- readRDS(file.path(basedir, "processed", "country", "turkmenistan", "turkmenistan_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo84 <- readRDS(file.path(basedir, "processed", "country", "nigeria", "nigeria_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo85 <- readRDS(file.path(basedir, "processed", "country", "senegal", "senegal_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo86 <- readRDS(file.path(basedir, "processed", "country", "singapore", "singapore_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo87 <- readRDS(file.path(basedir, "processed", "country", "suriname", "suriname_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo88 <- readRDS(file.path(basedir, "processed", "country", "taiwan", "taiwan_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo89 <- readRDS(file.path(basedir, "processed", "country", "st_helena", "st_helena_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo55 <- readRDS(file.path(basedir, "processed", "country", "sri_lanka", "sri_lanka_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo90 <- readRDS(file.path(basedir, "processed", "country", "isle_of_man", "isle_of_man_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+rmfo91 <- readRDS(file.path(basedir, "processed", "country", "vietnam", "vietnam_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code))
+
 
 # Format data
 ################################################################################
@@ -505,10 +566,13 @@ data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmf
                      rmfo21, rmfo22, rmfo23, rmfo24, rmfo25, rmfo26, rmfo27, rmfo28, rmfo29, rmfo30,
                      rmfo31, rmfo32, rmfo33, rmfo34, rmfo35, rmfo36, rmfo37, rmfo38, rmfo39, rmfo40,
                      rmfo41, rmfo42, rmfo43, rmfo44, rmfo45, rmfo46, rmfo47, rmfo48, rmfo49, rmfo50,
-                     rmfo51, rmfo52, rmfo53, rmfo54, rmfo55, rmfo56, rmfo57, rmfo58, rfmo59, rmfo60,
+                     rmfo51, rmfo52, rmfo53, rmfo54, rmfo55, rmfo56, rmfo57, rmfo58, rmfo59, rmfo60,
                      rmfo61, rmfo62, rmfo63, rmfo64, rmfo65, rmfo66, rmfo67, rmfo68, rmfo69, rmfo70,
                      rmfo71, rmfo72, rmfo73, rmfo74, rmfo75, rmfo76, rmfo77, rmfo78, rmfo79, rmfo80,
-                     rmfo81, rmfo82)
+                     rmfo81, rmfo82, rmfo83, rmfo84, rmfo85, rmfo86, rmfo87, rmfo88, rmfo89, rmfo90,
+                     rmfo91)
+
+#76, 55, 88, 89 being weird
 
 data = data_sf %>%
   as.data.frame() %>%
