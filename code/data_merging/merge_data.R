@@ -561,31 +561,36 @@ rmfo92 <- readRDS(file.path(basedir, "processed", "country", "argentina", "argen
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
-  mutate(Area_code = as.character(Area_code))
-rmfo93 <- readRDS(file.path(basedir, "processed", "rmfo", "joint_technical_commission_maritime_front", "argentina_2.Rds")) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM")
+rmfo93 <- readRDS(file.path(basedir, "processed", "rmfo", "joint_technical_commission_maritime_front", "argentina_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
-  mutate(Area_code = as.character(Area_code))
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM")
 rmfo94 <- readRDS(file.path(basedir, "processed", "country", "colombia", "colombia_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
-  mutate(Area_code = as.character(Area_code))
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM")
 rmfo95 <- readRDS(file.path(basedir, "processed", "country", "costa_rica", "costa_rica_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
-  mutate(Area_code = as.character(Area_code))
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM")
 rmfo96 <- readRDS(file.path(basedir, "processed", "country", "ecuador", "ecuador_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
-  mutate(Area_code = as.character(Area_code))
+  mutate(Area_code = as.character(Area_code))%>%
+  st_zm(drop = TRUE, what = "ZM")
 
 # Format data
 ################################################################################
