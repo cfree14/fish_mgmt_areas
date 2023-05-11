@@ -617,6 +617,6 @@ data = data_sf %>%
 
 saveRDS(data_sf, file = file.path(basedir, "merged", "area_database.Rds"))
 #st_write(data_sf, file.path(basedir, "merged", "area_database.shp"))
-st_write(data_sf, file.path(basedir, "merged", "area_database.gpkg"))
+st_write(data_sf, file.path(basedir, "merged", "area_database.gpkg"), append=FALSE)
 write_csv(data, file = file.path(basedir, "merged", "area_database.csv"))
 
