@@ -589,8 +589,23 @@ rmfo96 <- readRDS(file.path(basedir, "processed", "country", "ecuador", "ecuador
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
-  mutate(Area_code = as.character(Area_code))%>%
+  mutate(Area_code = as.character(Area_code)) %>%
   st_zm(drop = TRUE, what = "ZM")
+rmfo97 <- readRDS(file.path(basedir, "processed", "country", "suriname", "suriname_2.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo98 <- readRDS(file.path(basedir, "processed", "country", "nicaragua", "nicaragua_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
 
 # Format data
 ################################################################################
@@ -604,9 +619,7 @@ data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmf
                      rmfo61, rmfo62, rmfo63, rmfo64, rmfo65, rmfo66, rmfo67, rmfo68, rmfo69, rmfo70,
                      rmfo71, rmfo72, rmfo73, rmfo74, rmfo75, rmfo76, rmfo77, rmfo78, rmfo79, rmfo80,
                      rmfo81, rmfo82, rmfo83, rmfo84, rmfo85, rmfo86, rmfo87, rmfo88, rmfo89, rmfo90,
-                     rmfo91, rmfo92, rmfo93, rmfo94, rmfo95, rmfo96)
-
-#76, 55, 88, 89 being weird
+                     rmfo91, rmfo92, rmfo93, rmfo94, rmfo95, rmfo96, rmfo97, rmfo98)
 
 data = data_sf %>%
   as.data.frame() %>%
