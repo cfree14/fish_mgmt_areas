@@ -597,6 +597,7 @@ rmfo97 <- readRDS(file.path(basedir, "processed", "country", "suriname", "surina
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
   mutate(System_species_description = as.character(System_species_description))
 rmfo98 <- readRDS(file.path(basedir, "processed", "country", "nicaragua", "nicaragua_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
@@ -604,7 +605,7 @@ rmfo98 <- readRDS(file.path(basedir, "processed", "country", "nicaragua", "nicar
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code)) %>%
-  st_zm(drop = TRUE, what = "ZM") %>%
+
   mutate(System_species_description = as.character(System_species_description))
 
 # Format data
