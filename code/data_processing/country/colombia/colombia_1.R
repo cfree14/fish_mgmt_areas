@@ -35,7 +35,7 @@ data <- data_orig %>%
   # add columns
   mutate(
     Owner_name_english = "National Aquaculture and Fisheries Authority", # preferred if no official translation unless not roman alphabe
-    Owner_code_localized = "AUNAP", # preferred if no official translation
+    Owner_code = "AUNAP", # preferred if no official translation
     Owner_code_official = "1", # required
     Owner_multinational = "0", # required
     Owner_country = "col",

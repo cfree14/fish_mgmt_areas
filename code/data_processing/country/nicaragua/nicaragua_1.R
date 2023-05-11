@@ -43,12 +43,12 @@ data <- data_orig %>%
   # add columns
   mutate(
     Owner_name_localized = "Instituto Nicaraguense de Pesca y Acuicultura",
-    Owner_code_localized = "INPESCA", # preferred if no official translation
+    Owner_code = "INPESCA", # preferred if no official translation
     Owner_code_official = "1", # required
     Owner_multinational = "0", # required
     Owner_country = "nic",
     System_code = "NFZ", # required
-    System_code_official = "", # required
+    System_code_official = "0", # required
     System_multispecies = "1",
     System_source_date = "2022-03-02", # required
     System_shape_file = "NA",

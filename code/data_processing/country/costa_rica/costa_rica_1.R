@@ -35,8 +35,9 @@ data <- data_orig %>%
   # add columns
   mutate(
     Owner_name_localized = "Instituto Costarricense de Pesca y Acuicultura", # preferred if no official translation unless not roman alphabet
-    Owner_code_localized= "INCOPESCA",
-    Owner_code_official = "1", # required
+    Owner_code_localized = "INCOPESCA",
+    Owner_code = "CRIFA",
+    Owner_code_official = "0", # required
     Owner_multinational = "0", # required
     Owner_country = "cri",
     System_code = "AMPR", # required
@@ -55,7 +56,7 @@ data <- data_orig %>%
   )
 
 data$Area_code = c(1:nrow(data))
-data$System_source_data = c("2019-11-29", "2019-11-29",
+data$System_source_date = c("2019-11-29", "2019-11-29",
                             "2019-11-29", "2019-11-29",
                             "2019-11-29", "2019-11-29",
                             "2012-04-13", "2014-05-30",

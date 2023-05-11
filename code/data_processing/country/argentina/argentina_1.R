@@ -35,7 +35,7 @@ data <- data_orig %>%
   # add columns
   mutate(
     Owner_name_localized = "Ministerio de Agricultura, Ganadería y Pesca", # preferred if no official translation unless not roman alphabet
-    Owner_code_localized = "MAGyP", # preferred if no official translation
+    Owner_code = "MAGyP", # preferred if no official translation
     Owner_code_official = "1", # required
     Owner_multinational = "0", # required
     Owner_country = "arg",

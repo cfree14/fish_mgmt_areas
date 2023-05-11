@@ -34,6 +34,7 @@ data <- data_orig %>%
   mutate(
     Owner_name_localized = "Ministerie van LVV",
     Owner_code_localized = "LVV", # preferred if no official translation
+    Owner_code = "DALF",
     Owner_code_official = "1", # required
     Owner_multinational = "0", # required
     Owner_country = "sur",

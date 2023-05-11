@@ -50,8 +50,8 @@ data <- data %>%
     System_shape_file = "statstical_areas.zip",
     System_license_terms = "Public Domain", # required
     System_lineage = "Downloaded and imported from github.com/ccamlr/data on 2 Feb 2023", # required
-    System_type = "Statstical Areas", # required
-    System_category = "Statstical Area", # required
+    System_type = "Statistical Areas", # required
+    System_category = "Statistical Area", # required
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()

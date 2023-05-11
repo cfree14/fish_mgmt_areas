@@ -11,7 +11,8 @@ setwd(basedir)
 
 # Read data
 data_orig1 <- readRDS(file.path(basedir, "raw", "country", "ecuador", "Ecuador_artisanal.RDS"))
-data_orig2 <- readRDS(file.path(basedir, "raw", "country", "ecuador", "Ecuador_purse_seine_large.RDS"))
+data_orig2 <- readRDS(file.path(basedir, "raw", "country", "ecuador", "Ecuador_purse_seine_large.RDS")) %>%
+  mutate(zone_id = c(1:3))
 data_orig3 <- readRDS(file.path(basedir, "raw", "country", "ecuador", "Ecuador_purse_seine_small.RDS"))
 data_orig4 <- readRDS(file.path(basedir, "raw", "country", "ecuador", "Ecuador_purse_seine_small_and_large.RDS"))
 data_orig5 <- readRDS(file.path(basedir, "raw", "country", "ecuador", "Ecuador_trawl.RDS"))
@@ -43,7 +44,8 @@ data <- data_orig %>%
   mutate(
     Owner_name_english = "National Secretariat of Planning", # preferred if no official translation unless not roman alphabet
     Owner_code_localized= "SENPLADES",
-    Owner_code_official = "1", # required
+    Owner_code = "NSP",
+    Owner_code_official = "0", # required
     Owner_multinational = "0", # required
     Owner_country = "ecu",
     System_code = "EFA", # required
@@ -56,10 +58,12 @@ data <- data_orig %>%
     System_lineage = "Digitized by Leonardo Feitosa in Google Earth Engine", # required
     System_type = "Management Area", # required
     System_category = "Management Area", # required
-    Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu; Leonardo Feitosa",
     Created_on = Sys.Date()
   )
+
+
+data$Area_code_official = c(rep("1", 11), rep("0", 3), rep("1", 2), rep("1", 15), rep("1", 4))
 
 
 # Export data

@@ -34,7 +34,7 @@ data <- data_orig %>%
   select(-country, -ocean, -region, -species, -created, -source, -type) %>% # required
   # add columns
   mutate(
-    Owner_code_english = "CTMFM", # preferred if no official translation
+    Owner_code = "CTMFM", # preferred if no official translation
     Owner_code_official = "1", # required
     Owner_multinational = "0", # required
     Owner_country = "arg",
