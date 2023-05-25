@@ -344,6 +344,38 @@ rmfo55 <- readRDS(file.path(basedir, "processed", "country", "EEZ", "EEZ_1.Rds")
   mutate(Area_code = as.character(Area_code)) %>%
   st_zm(drop = TRUE, what = "ZM") %>%
   mutate(System_species_description = as.character(System_species_description))
+rmfo56 <- readRDS(file.path(basedir, "processed", "country", "greece", "greece_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo57 <- readRDS(file.path(basedir, "processed", "country", "ireland", "ireland_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo58 <- readRDS(file.path(basedir, "processed", "country", "panama", "panama_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo59 <- readRDS(file.path(basedir, "processed", "country", "uruguay", "uruguay_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
 rmfo90 <- readRDS(file.path(basedir, "processed", "country", "isle_of_man", "isle_of_man_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
@@ -412,7 +444,7 @@ data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmf
                      rmfo21, rmfo22, rmfo23, rmfo24, rmfo25, rmfo26, rmfo27, rmfo28, rmfo29, rmfo30,
                      rmfo31, rmfo32, rmfo33, rmfo34, rmfo35, rmfo36, rmfo37, rmfo38, rmfo39, rmfo40,
                      rmfo41, rmfo42, rmfo43, rmfo44, rmfo45, rmfo46, rmfo47, rmfo48, rmfo49, rmfo50,
-                     rmfo51, rmfo52, rmfo53, rmfo54, rmfo55,
+                     rmfo51, rmfo52, rmfo53, rmfo54, rmfo55, rmfo56, rmfo57, rmfo58, rmfo59m
                      rmfo90,
                      rmfo92, rmfo93, rmfo94, rmfo95, rmfo96, rmfo97, rmfo98)
 
