@@ -81,7 +81,8 @@ data = data %>% # required
     System_category = "Management Area", # required
     Area_code_official = "0", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
-    Created_on = Sys.Date()
+    Created_on = Sys.Date(),
+    System_georef_code = "Area_code"
   )
 
 # Export data

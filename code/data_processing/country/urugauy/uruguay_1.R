@@ -50,7 +50,8 @@ data = data %>% # required
     Area_systematic_name_english = paste("Artisanal Fishing Zone", Area_code), # required
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
-    Created_on = Sys.Date()
+    Created_on = Sys.Date(),
+    System_georef_code = "Area_code"
   )
 
 # Export data
