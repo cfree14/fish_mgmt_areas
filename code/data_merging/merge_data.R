@@ -533,13 +533,13 @@ rmfo98 <- readRDS(file.path(basedir, "processed", "country", "nicaragua", "nicar
 # Format data
 ################################################################################
 
-data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmfo9, rmfo10,
-                     rmfo11, rmfo12, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20,
+data_sf <- bind_rows(rmfo1,  rmfo2,  rmfo3,  rmfo4,  rmfo5,  rmfo6,  rmfo7,  rmfo8,  rmfo9,  rmfo10,
+                     rmfo11, rmfo12,         rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20,
                      rmfo21, rmfo22, rmfo23, rmfo24, rmfo25, rmfo26, rmfo27, rmfo28, rmfo29, rmfo30,
                      rmfo31, rmfo32, rmfo33, rmfo34, rmfo35, rmfo36, rmfo37, rmfo38, rmfo39, rmfo40,
                      rmfo41, rmfo42, rmfo43, rmfo44, rmfo45, rmfo46, rmfo47, rmfo48, rmfo49, rmfo50,
                      rmfo51, rmfo52, rmfo53, rmfo54, rmfo55, rmfo56, rmfo57, rmfo58, rmfo59, rmfo60,
-                     rmfo61, rmfo62, rmfo63, rmfo64, rmfo65, rmfo6, rmfo67, rmfo68, rmfo69, rmfo70,
+                     rmfo61, rmfo62, rmfo63, rmfo64, rmfo65, rmfo66, rmfo67, rmfo68, rmfo69, rmfo70,
                      rmfo71,
                      rmfo90, rmfo92, rmfo93, rmfo94, rmfo95, rmfo96, rmfo97, rmfo98)
 
