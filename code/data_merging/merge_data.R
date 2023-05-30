@@ -390,6 +390,86 @@ rmfo61 <- readRDS(file.path(basedir, "processed", "country", "panama", "panama_2
   mutate(Area_code = as.character(Area_code)) %>%
   st_zm(drop = TRUE, what = "ZM") %>%
   mutate(System_species_description = as.character(System_species_description))
+rmfo62 <- readRDS(file.path(basedir, "processed", "country", "us", "us_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo63 <- readRDS(file.path(basedir, "processed", "country", "us", "us_2.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo64 <- readRDS(file.path(basedir, "processed", "rmfo", "ices", "ices_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo65 <- readRDS(file.path(basedir, "processed", "country", "scotland", "scotland_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo66 <- readRDS(file.path(basedir, "processed", "rmfo", "great_lakes_fishery_commission", "glfc_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo67 <- readRDS(file.path(basedir, "processed", "rmfo", "great_lakes_fishery_commission", "glfc_2.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo68 <- readRDS(file.path(basedir, "processed", "rmfo", "great_lakes_fishery_commission", "glfc_3.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo69 <- readRDS(file.path(basedir, "processed", "country", "greenland", "greenland_1.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo70 <- readRDS(file.path(basedir, "processed", "country", "greenland", "greenland_2.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
+rmfo71 <- readRDS(file.path(basedir, "processed", "country", "greenland", "greenland_3.Rds")) %>%
+  mutate(System_georef_code = as.character(System_georef_code)) %>%
+  mutate(Owner_code_official = as.character(Owner_code_official)) %>%
+  mutate(Owner_multinational = as.character(Owner_multinational)) %>%
+  mutate(System_code_official = as.character(System_code_official)) %>%
+  mutate(Area_code = as.character(Area_code)) %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  mutate(System_species_description = as.character(System_species_description))
 rmfo90 <- readRDS(file.path(basedir, "processed", "country", "isle_of_man", "isle_of_man_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
@@ -459,9 +539,9 @@ data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmf
                      rmfo31, rmfo32, rmfo33, rmfo34, rmfo35, rmfo36, rmfo37, rmfo38, rmfo39, rmfo40,
                      rmfo41, rmfo42, rmfo43, rmfo44, rmfo45, rmfo46, rmfo47, rmfo48, rmfo49, rmfo50,
                      rmfo51, rmfo52, rmfo53, rmfo54, rmfo55, rmfo56, rmfo57, rmfo58, rmfo59, rmfo60,
-                     rmfo61,
-                     rmfo90,
-                     rmfo92, rmfo93, rmfo94, rmfo95, rmfo96, rmfo97, rmfo98)
+                     rmfo61, rmfo62, rmfo63, rmfo64, rmfo65, rmfo56, rmfo67, rmfo68, rmfo69, rmfo70,
+                     rmfo71,
+                     rmfo90, rmfo92, rmfo93, rmfo94, rmfo95, rmfo96, rmfo97, rmfo98)
 
 data = data_sf %>%
   as.data.frame() %>%
