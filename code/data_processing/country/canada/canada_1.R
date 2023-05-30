@@ -55,6 +55,8 @@ data = data %>% # required
     Created_on = Sys.Date()
   )
 
+data$Area_code = c(1:nrow(data))
+
 # Export data
 ################################################################################
 
