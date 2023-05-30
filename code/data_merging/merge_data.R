@@ -539,7 +539,7 @@ data_sf <- bind_rows(rmfo1, rmfo2, rmfo3, rmfo4, rmfo5, rmfo6, rmfo7, rmfo8, rmf
                      rmfo31, rmfo32, rmfo33, rmfo34, rmfo35, rmfo36, rmfo37, rmfo38, rmfo39, rmfo40,
                      rmfo41, rmfo42, rmfo43, rmfo44, rmfo45, rmfo46, rmfo47, rmfo48, rmfo49, rmfo50,
                      rmfo51, rmfo52, rmfo53, rmfo54, rmfo55, rmfo56, rmfo57, rmfo58, rmfo59, rmfo60,
-                     rmfo61, rmfo62, rmfo63, rmfo64, rmfo65, rmfo56, rmfo67, rmfo68, rmfo69, rmfo70,
+                     rmfo61, rmfo62, rmfo63, rmfo64, rmfo65, rmfo6, rmfo67, rmfo68, rmfo69, rmfo70,
                      rmfo71,
                      rmfo90, rmfo92, rmfo93, rmfo94, rmfo95, rmfo96, rmfo97, rmfo98)
 
@@ -554,4 +554,3 @@ saveRDS(data_sf, file = file.path(basedir, "merged", "area_database.Rds"))
 #st_write(data_sf, file.path(basedir, "merged", "area_database.shp"))
 st_write(data_sf, file.path(basedir, "merged", "area_database.gpkg"), append=FALSE)
 write_csv(data, file = file.path(basedir, "merged", "area_database.csv"))
-
