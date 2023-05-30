@@ -9,13 +9,12 @@ library(sf)
 basedir <- "G:/My Drive/projects/mgmt_area_database_ac"
 setwd(basedir)
 
-# Read data
-data_orig <- st_read(file.path(basedir, "raw", "MR_EEZ", "eez_v11.shp")) %>%
-  filter(grepl("Greenland", GEONAME)) %>%
-  select(GEONAME, MRGID, geometry)
-
 # Coordinate system
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
+
+# Read data
+data_orig <- st_read(file.path(basedir, "raw", "country", "greenland", "greenland_3.shp")) %>%
+  sf::st_transform(wgs84)
 
 # Format data
 ################################################################################
@@ -23,32 +22,31 @@ wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 # Format data
 
 data <- data_orig %>%
-  # Reproject
-  sf::st_transform(wgs84) %>%
   # rename to geom
-  rename(geom = geometry,
-         Area_code = MRGID,
-         Area_descriptive_name = GEONAME) %>% # required
+  rename(geom = geometry) %>%
+  mutate(System_georef_code = "Area_code")
+
+data = data %>% # required
   # add columns
   mutate(
-    Owner_name_english = "Marine Regions", # required
-    Owner_code = "MR", # required
-    Owner_code_official = "0", # required
-    Owner_multinational = "1", # required
-    System_name_english = "Greenland", # required
-    System_code = "grl", # required
-    System_code_official = "1", # required
+    Owner_name_english = "International Council for the Exploration of the Sea", # required
+    Owner_code = "ICES", # required
+    Owner_code_official = "1", # required
+    Owner_multinational = "0", # required
+    Owner_country = "grl",
+    System_name_english = "Greenland Survey Area", # required
+    System_code = "SA", # required
+    System_code_official = "0", # required
     System_multispecies = "1",
     System_species_description = "",
-    System_source = "Flanders Marine Institute (2019). Maritime Boundaries Geodatabase: Maritime Boundaries and Exclusive Economic Zones (200NM), version 11. Available online at https://www.marineregions.org/. https://doi.org/10.14284/386", # required
-    System_source_date = "2019-01-01", # required
-    System_shape_file = "eez_v11.shp",
-    System_georef_code = "MRGID",
-    System_license_terms = "Copyleft- Attribution only", # required
-    System_lineage = "Filtered eez_v11.shp to so that GEONAME contained \"Greenland\"", # required
-    System_type = "Greenland EEZ", # required
-    System_category = "Management Area", # required
-    Area_systematic_name_english = "Greenland EEZ", # required
+    System_source = "International Council for the Exploration of the Sea. (04 Oct 2021). ICES Advice on fishing opportunities, catch, and effort: Iceland Sea and Greenland Sea ecoregions. ices-library.figshare.com. Retrieved 25 May 2023: https://ices-library.figshare.com/articles/report/Beaked_redfish_Sebastes_mentella_in_ICES_subareas_5_12_and_14_Iceland_and_Faroes_grounds_north_of_Azores_east_of_Greenland_and_in_NAFO_subareas_1_and_2_shallow_pelagic_stock_500_m_/18639479?backTo=/collections/ICES_Advice_2021/5796932", # required
+    System_source_date = "2021-10-04", # required
+    System_shape_file = "greenland_3.shp",
+    System_license_terms = "Public Domain", # required
+    System_lineage = "Digitized by Alicia Caughman in QGIS on May 26 2023", # required
+    System_type = "Greenland ICES Assessment Area", # required
+    System_category = "Assessment Area", # required
+    Area_systematic_name_english = paste("ICES Survey Area", Area_code), # required
     Area_code_official = "1", # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
