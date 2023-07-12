@@ -10,7 +10,7 @@ basedir <- "G:/My Drive/projects/mgmt_area_database_ac"
 setwd(basedir)
 
 # Read data
-data_orig <- st_read(file.path(basedir, "raw", "MR_EEZ", "eez_v11.shp")) %>%
+data_orig <- st_read(file.path(basedir, "raw", "base_maps", "ne_10m_lakes.shp")) %>%
   filter(grepl("Moro", GEONAME)) %>%
   select(GEONAME, MRGID, geometry)
 

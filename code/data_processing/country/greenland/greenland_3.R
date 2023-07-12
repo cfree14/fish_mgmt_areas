@@ -23,9 +23,9 @@ data_orig <- st_read(file.path(basedir, "raw", "country", "greenland", "greenlan
 
 data <- data_orig %>%
   # rename to geom
-  rename(geom = geometry) %>%
-  mutate(System_georef_code = "Area_code",
-         Area_descriptive_name = Area_descr)
+  rename(geom = geometry,
+         Area_descriptive_name = Area_descr) %>%
+  mutate(System_georef_code = "Area_code")
 
 data = data %>% # required
   # add columns

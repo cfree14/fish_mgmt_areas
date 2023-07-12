@@ -23,7 +23,8 @@ data_orig <- st_read(file.path(basedir, "raw", "country", "us", "noaa_w.shp")) %
 
 data <- data_orig %>%
   # rename to geom
-  rename(geom = geometry) %>%
+  rename(geom = geometry,
+         Area_descriptive_name = Area_descr) %>%
   mutate(System_georef_code = "Area_code")
 
 data = data %>% # required

@@ -24,10 +24,10 @@ data_orig <- st_read(file.path(basedir, "raw", "country", "canada", "DFO-MPO_Reg
 
 data <- data_orig %>%
   # rename to geom
-  rename(geom = Shape) %>%
-  mutate(System_georef_code = "Area_code",
+  rename(geom = Shape,
          Area_systematic_name_english = Region_EN,
-         Area_systematic_name_localized = Region_FR)
+         Area_systematic_name_localized = Region_FR) %>%
+  mutate(System_georef_code = "Area_code")
 
 data = data %>% # required
   # add columns
