@@ -11,7 +11,6 @@ setwd(basedir)
 
 # Read data
 data_orig <- st_read(file.path(basedir, "raw", "MR_EEZ", "eez_v11.shp")) %>%
-  # filter(grepl("Exclusive Economic Zone", GEONAME)) %>%
   select(GEONAME, MRGID, geometry, ISO_TER1, TERRITORY1) %>%
   rename(geom = geometry,
          Area_code = MRGID,
@@ -44,7 +43,7 @@ data <- data_orig %>%
     System_shape_file = "eez_v11.shp",
     System_georef_code = "MRGID",
     System_license_terms = "Copyleft- Attribution only", # required
-    System_lineage = "Filtered eez_v11.shp to so that GEONAME contained \"Exclusive Economic Zone\"", # required
+    System_lineage = "downloaded version 11 of the Marine Regions EEZs", # required
     System_type = "Exclusive Economic Zone", # required
     System_category = "Management Area", # required
     Area_systematic_name_english = paste(System_name_english, "EEZ"), # required
