@@ -38,8 +38,8 @@ data = data %>% # required
     Owner_country = "mex",
     System_name_english = "Sea Cucumber Fishery Management Plan in the Yucatan Peninsula", # required
     System_name_localized = "Plan de Manejo Pesquero de pepino de mar en la península de Yucatán",
-    System_code = "FMP", # required
-    System_code_localized = "PMP",
+    System_code = "SC FMP", # required
+    System_code_localized = "SC PMP",
     System_code_official = "0", # required
     System_multispecies = "1",
     System_species_description = paste("Isostichopus badionotus and Holothuria floridana"),
@@ -57,6 +57,7 @@ data = data %>% # required
   )
 
 data$Area_code_official = c("0", "1", "1", "1", "0", "1")
+data$Area_code = c("0", "II", "I", "III", "IV", "1")
 
 # Export data
 ################################################################################

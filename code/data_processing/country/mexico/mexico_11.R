@@ -31,17 +31,17 @@ data = data %>% # required
   mutate(
     Owner_name_english = "National Institute of Fisheries and Aquaculture", # required
     Owner_name_localized = "Instituto Nacional de Pesca y Acuacultura", # preferred if no official translation unless not roman alphabet
-    Owner_code = "INAPESCA", # required
+    Owner_code = "INAPESCA", # requireddata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAWElEQVR42mNgGPTAxsZmJsVqQApgmGw1yApwKcQiT7phRBuCzzCSDSHGMKINIeDNmWQlA2IigKJwIssQkHdINgxfmBBtGDEBS3KCxBc7pMQgMYE5c/AXPwAwSX4lV3pTWwAAAABJRU5ErkJggg==
     Owner_code_localized = "INAPESCA", # preferred if no official translation
     Owner_code_official = "1", # required
     Owner_multinational = "0", # required
     Owner_country = "mex",
     System_name_english = "Curvina Golfina Fisheries Management Plan", # required
     System_name_localized = "Plan de Manejo Pesquero de Curvina Golfina",
-    System_code = "FMP", # required
-    System_code_localized = "PMP",
+    System_code = "YNO FMP", # required
+    System_code_localized = "YNO PMP",
     System_code_official = "0", # required
-    System_multispecies = "1",
+    System_multispecies = "0",
     System_species_description = paste("Cynoscion othonopterus"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (06 Nov 2012). Plan de Manejo Pesquero de Curvina Golfina. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-curvina-golfina", # required
     System_source_date = "2012-11-06", # required

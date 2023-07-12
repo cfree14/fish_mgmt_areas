@@ -38,8 +38,8 @@ data = data %>% # required
     Owner_country = "mex",
     System_name_english = "Sinaloa and Sonora Crab Fishery Management Plan", # required
     System_name_localized = "Plan de Manejo Pesquero de Jaiba de Sinaloa y Sonora",
-    System_code = "FMP", # required
-    System_code_localized = "PMP",
+    System_code = "SSC FMP", # required
+    System_code_localized = "SSC PMP",
     System_code_official = "0", # required
     System_multispecies = "1",
     System_species_description = paste("Callinectes arcuatus (blue), C. bellicosus (brown or green), and C. toxotes (black)"),
@@ -56,6 +56,8 @@ data = data %>% # required
     Created_by = "Alicia Caughman / acaughman@ucsb.edu",
     Created_on = Sys.Date()
   )
+
+data$Area_code = c("I", "II", "III")
 
 # Export data
 ################################################################################
