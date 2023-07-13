@@ -13,7 +13,7 @@ setwd(basedir)
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 # Read data
-data_orig <- st_read(file.path(basedir, "raw", "country", "canada", "shapefiles", "herring.shp")) %>%
+data_orig <- st_read(file.path(basedir, "raw", "country", "canada", "shapefiles", "rock_crab.shp")) %>%
   sf::st_transform(wgs84)
 
 # Format data
@@ -34,14 +34,14 @@ data = data %>% # required
     Owner_code_official = "1", # required
     Owner_multinational = "0", # required
     Owner_country = "can",
-    System_name_english = "Fisheries and Oceans Canada Herring Regions", # required
-    System_code = "DFO HFA", # required
+    System_name_english = "Fisheries and Oceans Canada Rock Crab Regions", # required
+    System_code = "DFO RCFA", # required
     System_code_official = "0", # required
     System_multispecies = "0",
-    System_species_description = "Clupea harengus",
-    System_source = "Fisheries and Oceans Canada. (23 Feb 2022). Herring (Clupea harengus) Newfoundland and Labrador Region Divisions 2+3 (Herring Fishing Areas 1-11). dfo-mpo.gc.ca. Retrieved 12 July 2023: https://www.dfo-mpo.gc.ca/fisheries-peches/ifmp-gmp/herring-hareng/2021/index-eng.html", # required
-    System_source_date = "2022-02-23", # required
-    System_shape_file = "herring.shp",
+    System_species_description = "Rock Crab",
+    System_source = "Fisheries and Oceans Canada. (28 Oct 2021). Rock Crab Fishing Areas. dfo-mpo.gc.ca. Retrieved 12 July 2023: https://www.glf.dfo-mpo.gc.ca/glf/en/rock-crab-fishing-areas", # required
+    System_source_date = "2021-10-28", # required
+    System_shape_file = "rock_crab.shp",
     System_license_terms = "Public Domain", # required
     System_lineage = "Digitized by Alicia Caughman on 12 July 2023", # required
     System_type = "Fisheries and Oceans Canada Fishing Areas", # required
@@ -55,4 +55,4 @@ data = data %>% # required
 # Export data
 ################################################################################
 
-saveRDS(data, file = file.path(basedir, "processed", "country", "canada", "canada_2.Rds"))
+saveRDS(data, file = file.path(basedir, "processed", "country", "canada", "canada_3.Rds"))
