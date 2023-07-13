@@ -24,7 +24,8 @@ data <- data_orig %>%
   # Reproject
   sf::st_transform(wgs84) %>%
   # rename to geom
-  rename(geom = geometry) %>% # required
+  rename(geom = geometry,
+         Area_code = area_code) %>% # required
   # add columns
   mutate(
     Owner_name_english = "NA", # required
