@@ -550,7 +550,7 @@ rmfo101 <- readRDS(file.path(basedir, "processed", "country", "canada", "canada_
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code)) %>%
   st_zm(drop = TRUE, what = "ZM")
-rmfo13 <- readRDS(file.path(basedir, "processed", "country", "canada", "canada_5.Rds")) %>%
+rmfo73 <- readRDS(file.path(basedir, "processed", "country", "canada", "canada_5.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
@@ -564,7 +564,7 @@ rmfo72 <- readRDS(file.path(basedir, "processed", "country", "canada", "canada_6
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code)) %>%
   st_zm(drop = TRUE, what = "ZM")
-rmfo73 <- readRDS(file.path(basedir, "processed", "country", "canada", "canada_7.Rds")) %>%
+rmfo88 <- readRDS(file.path(basedir, "processed", "country", "canada", "canada_7.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
   mutate(Owner_code_official = as.character(Owner_code_official)) %>%
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
@@ -675,25 +675,26 @@ rmfo87 <- readRDS(file.path(basedir, "processed", "country", "us", "us_4.Rds")) 
 ################################################################################
 
 data_sf <- bind_rows(rmfo1,   rmfo2,  rmfo3,  rmfo4,  rmfo5,  rmfo6,  rmfo7,  rmfo8,  rmfo9,  rmfo10,
-                     rmfo11,  rmfo12, rmfo13, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20,
+                     rmfo11,  rmfo12,         rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20,
                      rmfo21,  rmfo22, rmfo23, rmfo24, rmfo25, rmfo26, rmfo27, rmfo28, rmfo29, rmfo30,
                      rmfo31,  rmfo32, rmfo33, rmfo34, rmfo35, rmfo36, rmfo37, rmfo38, rmfo39, rmfo40,
                      rmfo41,  rmfo42, rmfo43, rmfo44, rmfo45, rmfo46, rmfo47, rmfo48, rmfo49, rmfo50,
                      rmfo51,  rmfo52, rmfo53, rmfo54, rmfo55, rmfo56, rmfo57, rmfo58, rmfo59, rmfo60,
                      rmfo61,  rmfo62, rmfo63, rmfo64, rmfo65, rmfo66, rmfo67, rmfo68, rmfo69, rmfo70,
                      rmfo71,  rmfo72, rmfo73, rmfo74, rmfo75, rmfo76, rmfo77, rmfo78, rmfo79, rmfo80,
-                     rmfo81,  rmfo82, rmfo83, rmfo84, rmfo85, rmfo86, rmfo87,
+                     rmfo81,  rmfo82, rmfo83, rmfo84, rmfo85, rmfo86, rmfo87, rmfo88,
                      rmfo90,  rmfo92, rmfo93, rmfo94, rmfo95, rmfo96, rmfo97, rmfo98, rmfo99, rmfo100,
                      rmfo101)
 
 rm(rmfo1,   rmfo2,  rmfo3,  rmfo4,  rmfo5,  rmfo6,  rmfo7,  rmfo8,  rmfo9,  rmfo10,
-   rmfo11,  rmfo12, rmfo13, rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20,
+   rmfo11,  rmfo12,         rmfo14, rmfo15, rmfo16, rmfo17, rmfo18, rmfo19, rmfo20,
    rmfo21,  rmfo22, rmfo23, rmfo24, rmfo25, rmfo26, rmfo27, rmfo28, rmfo29, rmfo30,
    rmfo31,  rmfo32, rmfo33, rmfo34, rmfo35, rmfo36, rmfo37, rmfo38, rmfo39, rmfo40,
    rmfo41,  rmfo42, rmfo43, rmfo44, rmfo45, rmfo46, rmfo47, rmfo48, rmfo49, rmfo50,
    rmfo51,  rmfo52, rmfo53, rmfo54, rmfo55, rmfo56, rmfo57, rmfo58, rmfo59, rmfo60,
    rmfo61,  rmfo62, rmfo63, rmfo64, rmfo65, rmfo66, rmfo67, rmfo68, rmfo69, rmfo70,
    rmfo71,  rmfo72, rmfo73, rmfo74, rmfo75, rmfo76, rmfo77, rmfo78, rmfo79, rmfo80,
+   rmfo81,  rmfo82, rmfo83, rmfo84, rmfo85, rmfo86, rmfo87, rmfo88,
    rmfo90,  rmfo92, rmfo93, rmfo94, rmfo95, rmfo96, rmfo97, rmfo98, rmfo99, rmfo100,
    rmfo101)
 
