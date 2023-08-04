@@ -498,6 +498,7 @@ rmfo94 <- readRDS(file.path(basedir, "processed", "country", "colombia", "colomb
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code)) %>%
+  mutate(System_multispecies = as.character(System_multispecies)) %>%
   st_zm(drop = TRUE, what = "ZM")
 rmfo95 <- readRDS(file.path(basedir, "processed", "country", "costa_rica", "costa_rica_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
@@ -505,6 +506,7 @@ rmfo95 <- readRDS(file.path(basedir, "processed", "country", "costa_rica", "cost
   mutate(Owner_multinational = as.character(Owner_multinational)) %>%
   mutate(System_code_official = as.character(System_code_official)) %>%
   mutate(Area_code = as.character(Area_code)) %>%
+  mutate(System_multispecies = as.character(System_multispecies)) %>%
   st_zm(drop = TRUE, what = "ZM")
 rmfo96 <- readRDS(file.path(basedir, "processed", "country", "ecuador", "ecuador_1.Rds")) %>%
   mutate(System_georef_code = as.character(System_georef_code)) %>%
