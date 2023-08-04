@@ -41,6 +41,7 @@ data = data %>% # required
     System_code = "MUF FMP", # required
     System_code_localized = "MUF PMP",
     System_code_official = "0", # required
+    System_ASFIS = "MUF",
     System_multispecies = "1",
     System_species_description = paste("M. cephalus, M. curema"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (31 March 2014). Plan de Manejo Pesquero de Lisa y Lebrancha. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-lisa-y-lebrancha", # required

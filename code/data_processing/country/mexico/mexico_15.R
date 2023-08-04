@@ -42,6 +42,7 @@ data = data %>% # required
     System_code_localized = "SLC PMP",
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "SLC",
     System_species_description = paste("P. argus"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (13 March 2014). Plan de Manejo Pesquero de langosta espinosa de Yucatán. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-langosta-espinosa-de-yucatan", # required
     System_source_date = "2014-03-13", # required

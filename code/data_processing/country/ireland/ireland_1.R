@@ -85,6 +85,10 @@ data = data %>% # required
     System_georef_code = "Area_code"
   )
 
+data$System_ASFIS = c(rep("WHG",3),"", "WHB", rep("PLE", 5), rep("RFE", 5), rep("POK", 4),
+                      "HKE", rep("HOM", 2), rep("MEG", 2), "", rep("MNZ",2),
+                      rep("COD", 4), rep("HAD", 4), rep("", 4))
+
 # Export data
 ################################################################################
 

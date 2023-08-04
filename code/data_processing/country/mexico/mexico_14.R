@@ -42,6 +42,7 @@ data = data %>% # required
     System_code_localized = "SSC PMP",
     System_code_official = "0", # required
     System_multispecies = "1",
+    System_ASFIS = "SSC",
     System_species_description = paste("Callinectes arcuatus (blue), C. bellicosus (brown or green), and C. toxotes (black)"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (15 July 2014). Plan de Manejo Pesquero de Jaiba de Sinaloa y Sonora. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-jaiba-de-sinaloa-y-sonora", # required
     System_source_date = "2014-07-15", # required

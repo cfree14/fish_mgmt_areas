@@ -38,6 +38,7 @@ data = data %>% # required
     System_code = "DFO RCFA", # required
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "ROC",
     System_species_description = "Rock Crab",
     System_source = "Fisheries and Oceans Canada. (28 Oct 2021). Rock Crab Fishing Areas. dfo-mpo.gc.ca. Retrieved 12 July 2023: https://www.glf.dfo-mpo.gc.ca/glf/en/rock-crab-fishing-areas", # required
     System_source_date = "2021-10-28", # required

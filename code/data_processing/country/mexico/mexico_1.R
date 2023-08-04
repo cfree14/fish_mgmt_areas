@@ -41,6 +41,7 @@ data = data %>% # required
     System_code = "EGQ FMP", # required
     System_code_localized = "EGQ PMP",
     System_code_official = "0", # required
+    System_ASFIS = "EGQ",
     System_multispecies = "0",
     System_species_description = paste("Megapitaria squalida"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (25 Feb 2022). Plan de Manejo Pesquero de Almeja Chocolata en el Municipio de Loreto, Baja California Sur. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-almeja-chocolata-en-el-municipio-de-loreto-baja-california-sur", # required

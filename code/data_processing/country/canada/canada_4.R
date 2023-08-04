@@ -38,6 +38,7 @@ data = data %>% # required
     System_code = "DFO RSAU", # required
     System_code_official = "0", # required
     System_multispecies = "1",
+    System_ASFIS = "REB, REN",
     System_species_description = "Sebastes mentella and Sebastes fasciatus",
     System_source = "Fisheries and Oceans Canada. (01 Sept 2021). REDFISH (SEBASTES MENTELLA AND SEBASTES FASCIATUS) STOCKS ASSESSMENT IN UNITS 1 AND 2 IN 2021. dfo-mpo.gc.ca. Retrieved 12 July 2023: https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/41078445.pdf", # required
     System_source_date = "2021-09-01", # required

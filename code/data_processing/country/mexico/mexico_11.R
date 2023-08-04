@@ -42,6 +42,7 @@ data = data %>% # required
     System_code_localized = "YNO PMP",
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "YNO",
     System_species_description = paste("Cynoscion othonopterus"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (06 Nov 2012). Plan de Manejo Pesquero de Curvina Golfina. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-curvina-golfina", # required
     System_source_date = "2012-11-06", # required

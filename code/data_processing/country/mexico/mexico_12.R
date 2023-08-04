@@ -40,6 +40,7 @@ data = data %>% # required
     System_name_localized = "Plan de Manejo Pesquero de Robalo garabato, Pargo colorado y Curvinas",
     System_code = "SNO FMP", # required
     System_code_localized = "SNO PMP",
+    System_ASFIS = "SNO",
     System_code_official = "0", # required
     System_multispecies = "1",
     System_species_description = paste("Garabato Snook, Red Snapper, Curvinas"),
@@ -61,3 +62,4 @@ data = data %>% # required
 ################################################################################
 
 saveRDS(data, file = file.path(basedir, "processed", "country", "mexico", "mexico_12.Rds"))
+

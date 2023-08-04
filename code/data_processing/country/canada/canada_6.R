@@ -38,6 +38,7 @@ data = data %>% # required
     System_code = "DFO UFA", # required
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "",
     System_species_description = "Urchin",
     System_source = "Fisheries and Oceans Canada. (No Date). Fishing Areas for Urchin. dfo-mpo.gc.ca. Retrieved 12 July 2023: https://www.qc.dfo-mpo.gc.ca/infoceans/sites/infoceans/files/OursinQuebec_en.pdf", # required
     System_source_date = "0000-01-01", # required

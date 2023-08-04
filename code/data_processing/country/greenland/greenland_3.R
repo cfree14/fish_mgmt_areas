@@ -40,6 +40,7 @@ data = data %>% # required
     System_code = "MA", # required
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "CRQ",
     System_species_description = "Snow Crab",
     System_source = "AnnDorte Burmeister . (01 Nov 2010).  Assessment and advise of snow crab in west Greenland 2011. natur.gl. Retrieved 25 May 2023: https://natur.gl/wp-content/uploads/2010/01/83-Assessment-and-advice-of-Snow-Crab-in-West-Greenland-2010.pdf", # required
     System_source_date = "2010-11-01", # required

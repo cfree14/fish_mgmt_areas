@@ -38,6 +38,7 @@ data = data %>% # required
     System_code = "DFO HFA", # required
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "HER",
     System_species_description = "Clupea harengus",
     System_source = "Fisheries and Oceans Canada. (23 Feb 2022). Herring (Clupea harengus) Newfoundland and Labrador Region Divisions 2+3 (Herring Fishing Areas 1-11). dfo-mpo.gc.ca. Retrieved 12 July 2023: https://www.dfo-mpo.gc.ca/fisheries-peches/ifmp-gmp/herring-hareng/2021/index-eng.html", # required
     System_source_date = "2022-02-23", # required

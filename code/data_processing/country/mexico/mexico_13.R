@@ -41,6 +41,7 @@ data = data %>% # required
     System_code = "UYF FMP", # required
     System_code_localized = "UYF PMP",
     System_code_official = "0", # required
+    System_ASFIS = "UYF",
     System_multispecies = "1",
     System_species_description = paste("Red and Purple Urchin"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (20 Dec 2012). Plan de Manejo Pesquero de Erizo rojo y morado. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-erizo-rojo-y-morado", # required

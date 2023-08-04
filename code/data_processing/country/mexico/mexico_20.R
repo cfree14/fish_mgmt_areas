@@ -42,6 +42,7 @@ data = data %>% # required
     System_code_localized = "AXN PMP",
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "AXN",
     System_species_description = paste("Paralabrax nebulifer"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (01 March 2021). Plan de Manejo Pesquero para Verdillo en la Península de Baja California. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-para-verdillo-en-la-peninsula-de-baja-california", # required
     System_source_date = "2021-03-01", # required
