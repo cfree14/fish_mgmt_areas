@@ -39,6 +39,7 @@ data = data %>% # required
     System_name_english = "Fishery Management Plan for Bluefin Tuna", # required
     System_name_localized = "Plan de Manejo Pesquero para Atún Aleta Azul",
     System_code = "PBF FMP", # required
+    System_ASFIS = "PBF",
     System_code_localized = "PBF PMP",
     System_code_official = "0", # required
     System_multispecies = "0",

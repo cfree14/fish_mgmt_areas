@@ -19,6 +19,7 @@ data_orig1 <- st_read(file.path(basedir, "raw", "country", "mexico", "sabalo.shp
          System_code = "TAR NFC", # required
          System_code_localized = "TAR CNP",
          System_multispecies = "0",
+         System_ASFIS = "TAR",
          System_species_description = paste("Megalops atlanticus"),
          Area_systematic_name_english = "Capture Area for Tarpon", # required
          System_shape_file = "sabalo.shp",
@@ -30,6 +31,7 @@ data_orig2 <- st_read(file.path(basedir, "raw", "country", "mexico", "sardina.sh
          System_code = "THA NFC", # required
          System_code_localized = "THA CNP",
          System_multispecies = "1",
+         System_ASFIS = "THA",
          System_species_description = paste("Opisthonema oglinum, Harengula sp., Brevoortia sp."),
          Area_systematic_name_english = "Capture Area for Herring", # required
          System_shape_file = "sardina.shp",
@@ -41,6 +43,7 @@ data_orig3 <- st_read(file.path(basedir, "raw", "country", "mexico", "trucha.shp
          System_code = "SWF NFC", # required
          System_code_localized = "SWF CNP",
          System_multispecies = "1",
+         System_ASFIS = "SWF",
          System_species_description = paste("Cynoscion nebulosus, Cynoscion arenarius, Cynoscion nothus"),
          Area_systematic_name_english = "Capture Area for Weakfish", # required
          System_shape_file = "trucha.shp",

@@ -19,6 +19,7 @@ data_orig1 <- st_read(file.path(basedir, "raw", "country", "mexico", "calamar.sh
          System_code = "GIS NFC", # required
          System_code_localized = "GIS CNP",
          System_multispecies = "0",
+         System_ASFIS = "GIS",
          System_species_description = paste("Dosidicus gigas"),
          Area_systematic_name_english = "Capture Area for Jumbo Flying Squid", # required
          System_shape_file = "calamar.shp",
@@ -30,6 +31,7 @@ data_orig2 <- st_read(file.path(basedir, "raw", "country", "mexico", "marlin.shp
          System_code = "BLM NFC", # required
          System_code_localized = "BLM CNP",
          System_multispecies = "1",
+         System_ASFIS = "BLM",
          System_species_description = paste("Kajikia audax, Makaira mazara, Istiompax indica, Tetrapturus angustirostris"),
          Area_systematic_name_english = "Capture Area for Marlin", # required
          System_shape_file = "marlin.shp",
@@ -41,6 +43,7 @@ data_orig3 <- st_read(file.path(basedir, "raw", "country", "mexico", "merluza.sh
          System_code = "NHA NFC", # required
          System_code_localized = "NHA CNP",
          System_multispecies = "0",
+         System_ASFIS = "NHA",
          System_species_description = paste("Merluccius productus"),
          Area_systematic_name_english = "Capture Area for Hake", # required
          System_shape_file = "merluza.shp",
@@ -52,6 +55,7 @@ data_orig4 <- st_read(file.path(basedir, "raw", "country", "mexico", "pelagicos.
          System_code = "CHP NFC", # required
          System_code_localized = "CHP CNP",
          System_multispecies = "1",
+         System_ASFIS = "CHP",
          System_species_description = paste("Sardinops sagax, Engraulis mordax, Opisthonema libertate, Opisthonema bulleri, Opisthonema medirastre, Scomber japonicus, Cetengraulis mysticetus, Etrumeus teres, Trachurus symmetricus, Oligoplites refulgens, O. altus, O. saurus"),
          Area_systematic_name_english = "Capture Area for Small Pelagics", # required
          System_shape_file = "pelagicos.shp",
@@ -63,6 +67,7 @@ data_orig5 <- st_read(file.path(basedir, "raw", "country", "mexico", "bagres.shp
          System_code = "BEM NFC", # required
          System_code_localized = "BEM CNP",
          System_multispecies = "1",
+         System_ASFIS = "BEM",
          System_species_description = paste("Bagre marinus, Ariopsis felis"),
          Area_systematic_name_english = "Capture Area for Catfish", # required
          System_shape_file = "bagres.shp",
@@ -74,6 +79,7 @@ data_orig6 <- st_read(file.path(basedir, "raw", "country", "mexico", "camaron_ca
          System_code = "BS NFC", # required
          System_code_localized = "BS CNP",
          System_multispecies = "0",
+         System_ASFIS = "",
          System_species_description = paste("Farfantepenaeus aztecus"),
          Area_systematic_name_english = "Capture Area for Brown Shrimp", # required
          System_shape_file = "camaron_cafe.shp",
@@ -85,6 +91,7 @@ data_orig7 <- st_read(file.path(basedir, "raw", "country", "mexico", "camaron_ro
          System_code = "RS NFC", # required
          System_code_localized = "RS CNP",
          System_multispecies = "1",
+         System_ASFIS = "",
          System_species_description = paste("Farfantepenaeus brasiliensis, Sicyonia brevirostris"),
          Area_systematic_name_english = "Capture Area for Red Shrimp", # required
          System_shape_file = "camaron_rojo.shp",
@@ -96,6 +103,7 @@ data_orig8 <- st_read(file.path(basedir, "raw", "country", "mexico", "camaron_re
          System_code = "PS NFC", # required
          System_code_localized = "PS CNP",
          System_multispecies = "0",
+         System_ASFIS = "",
          System_species_description = paste("Farfantepenaeus duorarum"),
          Area_systematic_name_english = "Capture Area for Pink Shrimp", # required
          System_shape_file = "camaron_resado.shp",
@@ -107,6 +115,7 @@ data_orig9 <- st_read(file.path(basedir, "raw", "country", "mexico", "jaiba_gulf
          System_code = "CRB NFC", # required
          System_code_localized = "CRB CNP",
          System_multispecies = "1",
+         System_ASFIS = "CRB",
          System_species_description = paste("Callinectes sapidus, Callinectes rathbunae"),
          Area_systematic_name_english = "Capture Area for Crab", # required
          System_shape_file = "jaiba_gulfo.shp",
@@ -118,6 +127,7 @@ data_orig10 <- st_read(file.path(basedir, "raw", "country", "mexico", "jurel.shp
          System_code = "TAR NFC", # required
          System_code_localized = "TAR CNP",
          System_multispecies = "1",
+         System_ASFIS = "TAR",
          System_species_description = paste("Caranx hippos, Caranx latus, Caranx crysos"),
          Area_systematic_name_english = "Capture Area for Jack", # required
          System_shape_file = "jurel.shp",
@@ -129,6 +139,7 @@ data_orig11 <- st_read(file.path(basedir, "raw", "country", "mexico", "langosata
          System_code = "CVJ NFC", # required
          System_code_localized = "CVJ CNP",
          System_multispecies = "1",
+         System_ASFIS = "CVJ",
          System_species_description = paste("Panulirus argus, Panulirus guttatus"),
          Area_systematic_name_english = "Capture Area for Herring", # required
          System_shape_file = "langosata_golfo.shp",
@@ -140,6 +151,7 @@ data_orig12 <- st_read(file.path(basedir, "raw", "country", "mexico", "lisa.shp"
          System_code = "MUF NFC", # required
          System_code_localized = "MUF CNP",
          System_multispecies = "1",
+         System_ASFIS = "MUF",
          System_species_description = paste("Mugil cephalus, Mugil curema"),
          Area_systematic_name_english = "Capture Area for Mullet", # required
          System_shape_file = "lisa.shp",
@@ -151,6 +163,7 @@ data_orig13 <- st_read(file.path(basedir, "raw", "country", "mexico", "mero.shp"
          System_code = "GPR NFC", # required
          System_code_localized = "GPR CNP",
          System_multispecies = "1",
+         System_ASFIS = "GPR",
          System_species_description = paste("Epinephelus morio, Mycteroperca bonaci"),
          Area_systematic_name_english = "Capture Area for Grouper", # required
          System_shape_file = "mero.shp",
@@ -159,9 +172,10 @@ data_orig13 <- st_read(file.path(basedir, "raw", "country", "mexico", "mero.shp"
 data_orig14 <- st_read(file.path(basedir, "raw", "country", "mexico", "pepino_golfo.shp")) %>%
   sf::st_transform(wgs84) %>%
   mutate(System_name_english = "National Fishing Card for Herring", # required)
-         System_code = "GPR NFC", # required
-         System_code_localized = "GPR CNP",
+         System_code = "HIZ NFC", # required
+         System_code_localized = "HIZ CNP",
          System_multispecies = "0",
+         System_ASFIS = "HIZ",
          System_species_description = paste("Isostichopus badionotus"),
          Area_systematic_name_english = "Capture Area for Herring", # required
          System_shape_file = "pepino_golfo.shp",
@@ -173,6 +187,7 @@ data_orig15 <- st_read(file.path(basedir, "raw", "country", "mexico", "pulpo_gol
          System_code = "HIZ NFC", # required
          System_code_localized = "HIZ CNP",
          System_multispecies = "1",
+         System_ASFIS = "HIZ",
          System_species_description = paste("Octopus maya, Octopus vulgaris, Octopus insularis"),
          Area_systematic_name_english = "Capture Area for Sea Cucumber", # required
          System_shape_file = "pulpo_golfo.shp",
@@ -184,6 +199,7 @@ data_orig16 <- st_read(file.path(basedir, "raw", "country", "mexico", "rayas.shp
          System_code = "MAE NFC", # required
          System_code_localized = "MAE CNP",
          System_multispecies = "1",
+         System_ASFIS = "MAE",
          System_species_description = paste("Hypanus americanus, Aetobatus narinar, Rhinoptera bonasus, Gymnura micrura, Pseudobatos lentiginosus, Styracura schmardae, Bathytoshia centroura"),
          Area_systematic_name_english = "Capture Area for Rays", # required
          System_shape_file = "rayas.shp",
@@ -195,6 +211,7 @@ data_orig17 <- st_read(file.path(basedir, "raw", "country", "mexico", "robalo_2.
          System_code = "SNO NFC", # required
          System_code_localized = "SNO CNP",
          System_multispecies = "1",
+         System_ASFIS = "SNO",
          System_species_description = paste("Centropomus undecimalis, Centropomus poey, Centropomus parallelus"),
          Area_systematic_name_english = "Capture Area for Snook", # required
          System_shape_file = "robalo_2.shp",
@@ -206,6 +223,7 @@ data_orig18 <- st_read(file.path(basedir, "raw", "country", "mexico", "sierra.sh
          System_code = "KGM NFC", # required
          System_code_localized = "KGM CNP",
          System_multispecies = "1",
+         System_ASFIS = "KGM",
          System_species_description = paste("Scomberomorus cavalla, Scomberomorus maculatus, Scomberomorus regalis"),
          Area_systematic_name_english = "Capture Area for Mackerel", # required
          System_shape_file = "sierra.shp",
@@ -217,6 +235,7 @@ data_orig19 <- st_read(file.path(basedir, "raw", "country", "mexico", "tiburones
          System_code = "CCL NFC", # required
          System_code_localized = "CCL CNP",
          System_multispecies = "1",
+         System_ASFIS = "CCL",
          System_species_description = paste("Rhizoprionodon terraenovae, Sphyrna tiburo, Carcharhinus sp., Sphyrna lewini"),
          Area_systematic_name_english = "Capture Area for Shark", # required
          System_shape_file = "tiburones.shp",

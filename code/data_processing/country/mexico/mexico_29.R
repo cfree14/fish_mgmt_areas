@@ -42,6 +42,7 @@ data = data %>% # required
     System_code_localized = "PSY CNP",
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "PSY",
     System_species_description = paste("Farfantepenaeus duorarum"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (24 Aug 2012). SECRETARIA DE AGRICULTURA, GANADERIA, DESARROLLO RURAL, PESCA Y ALIMENTACION. www.gob.mx/. Retrieved 13 July 2023: https://www.gob.mx/cms/uploads/attachment/file/153374/Carta-Nacional-Pesquera-2012.pdf", # required
     System_source_date = "2012-08-24", # required

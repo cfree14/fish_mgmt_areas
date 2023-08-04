@@ -41,6 +41,7 @@ data = data %>% # required
     System_code = "OCC FMP", # required
     System_code_localized = "OCC PMP",
     System_code_official = "0", # required
+    System_ASFIS = "OCC",
     System_multispecies = "1",
     System_species_description = paste("O. maya and O. vulgaris"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (28 March 2014). Plan de Manejo Pesquero de Pulpo en el Golfo de México y Mar Caribe. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-pulpo-en-el-golfo-de-mexico-y-mar-caribe", # required

@@ -40,6 +40,7 @@ data = data %>% # required
     System_name_localized = "Plan de Manejo Pesquero de camarón rojo y camarón de roca",
     System_code = "RSH FMP", # required
     System_code_localized = "RSH PMP",
+    System_ASFIS = "RSH",
     System_code_official = "0", # required
     System_multispecies = "1",
     System_species_description = paste("Farfantepenaeus brasiliensis and Sicyonia brevirostris"),

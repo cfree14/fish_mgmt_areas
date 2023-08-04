@@ -41,6 +41,7 @@ data = data %>% # required
     System_code = "BKJ NFC", # required
     System_code_localized = "BKJ CNP",
     System_code_official = "0", # required
+    System_ASFIS = "BKJ",
     System_multispecies = "1",
     System_species_description = paste("Euthynnus lineatus, Sarda Chiliensis chiliensis"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (24 Aug 2012). SECRETARIA DE AGRICULTURA, GANADERIA, DESARROLLO RURAL, PESCA Y ALIMENTACION. www.gob.mx/. Retrieved 13 July 2023: https://www.gob.mx/cms/uploads/attachment/file/153374/Carta-Nacional-Pesquera-2012.pdf", # required

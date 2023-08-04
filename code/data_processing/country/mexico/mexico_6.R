@@ -41,6 +41,7 @@ data = data %>% # required
     System_code = "GIS FMP", # required
     System_code_localized = "GIS PMP",
     System_code_official = "0", # required
+    System_ASFIS = "GIS",
     System_multispecies = "0",
     System_species_description = paste("Dosidicus gigas"),
     System_source = "Instituto Nacional de Pesca y Acuacultura. (14 July 2014). Plan de Manejo Pesquero de Calamar Gigante. www.gob.mx/inapesca. Retrieved 14 March 2023: https://www.gob.mx/inapesca/documentos/plan-de-manejo-pesquero-de-calamar-gigante", # required
