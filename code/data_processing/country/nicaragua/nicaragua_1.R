@@ -38,8 +38,9 @@ data <- data_orig %>%
          System_name_localized = dataset_esp,
          Area_code = zone_id,
          Area_systematic_name_localized = zone_name,
-         System_source = citation) %>%
-  select(-country, -ocean, -region, -created, -species, -source, -type, -species_list) %>% # required
+         System_source = citation,
+         System_species_description = species) %>%
+  select(-country, -ocean, -region, -created, -source, -type, -species_list) %>% # required
   # add columns
   mutate(
     Owner_name_localized = "Instituto Nicaraguense de Pesca y Acuicultura",
@@ -49,7 +50,6 @@ data <- data_orig %>%
     Owner_country = "nic",
     System_code = "NFZ", # required
     System_code_official = "0", # required
-    System_multispecies = "1",
     System_source_date = "2022-03-02", # required
     System_shape_file = "NA",
     System_georef_code = "zone_id",
@@ -64,7 +64,7 @@ data <- data_orig %>%
   )
 
 data$Area_code = c(1:nrow(data))
-data$System_species_description = c(0, 1, 1, 1, 1, 0, 0, 0, 0, 0)
+data$System_multispecies = c("0", "1", "1", "1", "1", "0", "0", "0", "0", "0")
 
 # Export data
 ################################################################################

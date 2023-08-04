@@ -60,7 +60,7 @@ data <- data %>%
 
 data$Area_systematic_name_english <- c("NEAFC RA 1", "NEAFC RA 2", "NEAFC RA 3", "Reykjanes Ridge Existing Area", "HAR 1", "HAR 2", "HAR 3", "HAR 4", "HAR 5", "MAR1", "MAR2", "MAR3", "MAR4", "MAR5", "Josephine Seamount 1") # required
 data$Area_descriptive_name <- c("XRR Reykjanes Ridge", "XNS/ Banana Hole", "XBS/Loophole", "Reykjanes Ridge", "On the Hatton Bank", "On the Hatton Bank", "On the Hatton Bank", "On the Hatton Bank", "On the Hatton Bank", "In the Mid-Atlantic", "In the Mid-Atlantic", "In the Mid-Atlantic", "In the Mid-Atlantic", "In the Mid-Atlantic", "Josephine Seamount")
-data$Area_code <- c(1, 2, 3, 1, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1) # required
+data$Area_code <- c(1, 2, 3, 6, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 7) # required
 data$Area_code_official <- c("1", "1", "1", "0", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "0") # required
 data$System_type = c(rep("Regulatory Area", 3), rep("Existing Bottom Fishing Area", 12)) # required
 

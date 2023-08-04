@@ -57,7 +57,7 @@ data = data %>% # required
   )
 
 data$Area_code_official = c("0", "1", "1", "1", "0", "1")
-data$Area_code = c("0", "II", "I", "III", "IV", "1")
+data$Area_code = c("1", "II", "I", "III", "2", "IV")
 
 # Export data
 ################################################################################
