@@ -43,6 +43,7 @@ data <- data_orig %>%
     System_multispecies = "1",
     System_source_date = "2022-06-23", # required
     System_shape_file = "ctmfm_fishing_areas.KML",
+    System_ASFIS = "CKM",
     System_georef_code = "zone_id",
     System_license_terms = "Public Domain", # required
     System_lineage = "Digitized by Leonardo Feitosa in Google Earth Engine", # required

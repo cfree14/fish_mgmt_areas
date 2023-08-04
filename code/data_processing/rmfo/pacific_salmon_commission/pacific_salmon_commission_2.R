@@ -39,6 +39,7 @@ data <- data_orig %>%
     System_code = "PSCAoC", # required
     System_code_official = "0", # required
     System_multispecies = "1",
+    System_ASFIS = "SAL",
     System_species_description = "Salmon",
     System_source = "Pacific Salmon Commission. (December 2022). 37th PSC Annual Report (2021/22). Retieved on Feb 02 2023 from https://www.psc.org/publications/annual-reports/commission/", # required
     System_source_date = "2022-12-01", # required

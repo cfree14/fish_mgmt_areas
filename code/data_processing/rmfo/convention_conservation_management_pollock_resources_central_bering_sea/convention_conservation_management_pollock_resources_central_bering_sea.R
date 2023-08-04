@@ -44,6 +44,7 @@ data <- data %>%
     System_code = "CCBSPAoC", # required
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "POL",
     System_species_description = "Pollack",
     System_source = "Food and Agriculture Organization (FAO). (30 Jan 2020). Geographic Area of Competence of Convention on the Conservation and Management of Pollock Resources in the Central Bering Sea (CCBSP). data.apps.fao.org. Retrieved 17 Jan 2023: https://data.apps.fao.org/map/catalog/srv/eng/catalog.search#/metadata/fao-rfb-map-ccbsp", # required
     System_source_date = "2020-01-30", # required

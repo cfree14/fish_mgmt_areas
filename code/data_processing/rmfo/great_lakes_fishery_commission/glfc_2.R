@@ -37,6 +37,7 @@ data = data %>% # required
     System_code = "MU", # required
     System_code_official = "1", # required
     System_multispecies = "0",
+    System_ASFIS = "STV",
     System_species_description = "Walleye",
     System_source = "Walleye Task Group. (01 March 2023). Report by the Lake Erie Walleye Task Group. www.glfc.org. Retrieved 25 May 2023: http://www.glfc.org/pubs/lake_committees/erie/WTG_docs/annual_reports/WTG_report_2023.pdf", # required
     System_source_date = "2023-03-01", # required

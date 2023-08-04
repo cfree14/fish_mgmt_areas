@@ -46,6 +46,7 @@ data <- data %>%
     System_code = "CCAMLR SSMU", # required
     System_code_official = "1", # required
     System_multispecies = "0",
+    System_ASFIS = "KRI",
     System_species_description = "Krill",
     System_source = "Commission for the Conservation of Antarctic Marine Living Resources (CCAMLR). (04 Aug 2022). CCAMLR Public Data Repository. github.com. Retrieved 2 Feb 2023: https://github.com/ccamlr/data/tree/main/geographical_data/ssmu", # required
     System_shape_file = "ssmus.zip",

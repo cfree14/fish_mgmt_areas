@@ -37,6 +37,7 @@ data = data %>% # required
     System_code = "MU", # required
     System_code_official = "1", # required
     System_multispecies = "0",
+    System_ASFIS = "FPY",
     System_species_description = "Yellow Perch",
     System_source = "Yellow Perch Task Group. (01 April 2023). Report by the Lake Erie Yellow Perch Task Group. www.glfc.org. Retrieved 25 May 2023: http://www.glfc.org/pubs/lake_committees/erie/YPTG_docs/annual_reports/YPTG_report_2023.pdf", # required
     System_source_date = "2023-04-01", # required

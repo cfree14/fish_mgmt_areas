@@ -37,6 +37,7 @@ data = data %>% # required
     System_code = "GLAS", # required
     System_code_official = "0", # required
     System_multispecies = "1",
+    System_ASFIS = "LAT, WHL, FBU, LAU, SAL",
     System_species_description = "Lake Trout, Lake Whitefish, Burbot, Sea Lamprey, Salmon, Steelhead",
     System_source = "Coldwater Task Group. (01 March 2023). 2022 Report of the Lake Erie Coldwater Task Group. www.glfc.org. Retrieved 25 May 2023: http://www.glfc.org/pubs/lake_committees/erie/CWTG_docs/annual_reports/CWTG_report_2023.pdf", # required
     System_source_date = "2023-03-01", # required

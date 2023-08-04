@@ -40,6 +40,7 @@ data <- data %>%
     System_code = "CCSBTAoC", # required
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "SBF",
     System_species_description = "Thunnus maccoyii",
     System_source = "Commission for the Conservation of Southern Bluefin Tuna. (Nov 2006). CCSBT Southern Bluefin Tuna Statistical Document Program. Retrived on Feb 02 2023 from https://www.ccsbt.org/sites/default/files/userfiles/file/docs_english/operational_resolutions/trade_information_scheme.pdf", # required
     System_source_date = "2006-01-11", # required

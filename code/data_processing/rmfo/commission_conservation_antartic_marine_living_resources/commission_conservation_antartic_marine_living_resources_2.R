@@ -46,6 +46,7 @@ data <- data %>%
     System_code = "CCAMLRRB", # required
     System_code_official = "0", # required
     System_multispecies = "0",
+    System_ASFIS = "TOA",
     System_species_description = "Toothfish",
     System_source = "Commission for the Conservation of Antarctic Marine Living Resources (CCAMLR). (04 Aug 2022). CCAMLR Public Data Repository. github.com. Retrieved 2 Feb 2023: https://github.com/ccamlr/data/tree/main/geographical_data/rb", # required
     System_shape_file = "research_blocks.zip",

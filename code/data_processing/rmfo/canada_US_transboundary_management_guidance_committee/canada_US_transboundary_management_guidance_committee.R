@@ -35,7 +35,8 @@ data <- data_orig %>%
     System_code = "TRAC MAs", # required
     System_code_official = "0", # required
     System_multispecies = "1",
-    System_species_description = "Atlantic Code, Haddock, and Yellowtail Flounder",
+    System_ASFIS = "COD, HAD, YEL",
+    System_species_description = "Atlantic Cod, Haddock, and Yellowtail Flounder",
     System_source = "NOAA Fisheries Mational Marine Fisheries Service (01 Jan 2021) Allocation Shares for Canada and the USA of the Transboundary Resources of Atlantic Cod, Haddock, and Yellowtail Flounder on Georges Bank Through Fishing Year 2022. repository.library.noaa.gov. Retrieved on 31 Jan 2023 from: https://repository.library.noaa.gov/view/noaa/33217", # required
     System_source_date = "2021-01-01", # required
     System_shape_file = "canada_US_transboundary_management_guidance_committee.shp",

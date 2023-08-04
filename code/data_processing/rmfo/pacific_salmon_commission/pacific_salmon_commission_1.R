@@ -44,6 +44,7 @@ data <- data %>%
     System_code = "PSCAoC", # required
     System_code_official = "0", # required
     System_multispecies = "1",
+    System_ASFIS = "SAL",
     System_species_description = "Salmon",
     System_source = "Food and Agriculture Organization (FAO). (30 Jan 2020). Geographic Area of Competence of Pacific Salmon Commission (PSC). data.apps.fao.org. Retrieved 17 Jan 2023: https://data.apps.fao.org/map/catalog/srv/eng/catalog.search#/metadata/fao-rfb-map-psc", # required
     System_source_date = "2020-01-30", # required
