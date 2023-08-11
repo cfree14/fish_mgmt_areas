@@ -13,7 +13,7 @@ setwd(basedir)
 wgs84 <- sf::st_crs("+proj=longlat +datum=WGS84")
 
 # Read data
-data_orig <- st_read(file.path(basedir, "raw", "country", "panama", "panama_shark.shp")) %>%
+data_orig <- st_read(file.path(basedir, "raw", "country", "panama", "panama_pelagics.shp")) %>%
   sf::st_transform(wgs84)
 
 # Format data
